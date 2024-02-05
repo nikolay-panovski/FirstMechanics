@@ -16,9 +16,9 @@ public class SphereInputMove : KinematicBody
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if (Input.IsActionPressed("move_up"))   // works
+        if (Input.IsActionPressed("move_up"))
         {
-            MoveAndSlide(Vector3.Forward * speed * delta, Vector3.Up);  // doesn't work
+            Vector3 resultVelocity = MoveAndSlide(Vector3.Forward * speed * delta, Vector3.Up);
         }
     }
 
