@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class SphereInputMove : KinematicBody
+public class SphereInputMove : RigidBody
 {
     // Declare member variables here. Examples:
     [Export] private int speed = 10;
@@ -14,13 +14,29 @@ public class SphereInputMove : KinematicBody
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
-        if (Input.IsActionPressed("move_up"))
-        {
-            Vector3 resultVelocity = MoveAndSlide(Vector3.Forward * speed * delta, Vector3.Up);
-        }
-    }
+        Vector3 direction = Vector3.Zero;
 
-    // TODO: input polling in _Process, but actual movement in _PhysicsProcess
+        if (Input.IsActionPressed("move_right"))
+        {
+            direction.x += 1f;
+        }
+        if (Input.IsActionPressed("move_left"))
+        {
+            direction.x -= 1f;
+        }
+        if (Input.IsActionPressed("move_forward"))
+        {
+            direction.z -= 1f;
+        }
+        if (Input.IsActionPressed("move_backward"))
+        {
+            direction.z += 1f;
+        }
+
+        if (direction != Vector3.Zero) direction = direction.Normalized();
+
+        AddCentralForce(direction * speed * delta);
+    }
 }
