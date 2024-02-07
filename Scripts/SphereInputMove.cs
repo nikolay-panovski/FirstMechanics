@@ -1,17 +1,16 @@
 using Godot;
 using System;
 
-public class SphereInputMove : RigidBody
+/// Based on tutorial at:
+/// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
+public class SphereInputMove : KinematicBody
 {
-    // Declare member variables here. Examples:
+    // Declare member variables here.
     [Export] private int speed = 10;
-    [Export] private float angularSpeed = Mathf.Pi;
+    [Export] private int fallAcceleration = 75;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
+    private Vector3 velocity = Vector3.Zero;
+
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
@@ -37,6 +36,10 @@ public class SphereInputMove : RigidBody
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
-        AddCentralForce(direction * speed * delta);
+        velocity.x = direction.x * speed;           // !! no delta (because of _PhysicsProcess?)
+        velocity.z = direction.z * speed;
+        velocity.y -= fallAcceleration * delta;     // !! yes delta??
+
+        velocity = MoveAndSlide(velocity, Vector3.Up);
     }
 }
