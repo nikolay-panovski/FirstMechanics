@@ -33,6 +33,18 @@ public class SphereInputMove : KinematicBody
         {
             direction.z += 1f;
         }
+        if (IsOnFloor() && Input.IsActionPressed("jump"))
+        {
+            velocity.y += fallAcceleration * delta * 8;
+        }
+        //debug Y acceleration measures
+        if ((Time.GetTicksMsec() % 1000f) < 17f)   // Godot complains about output overflows a lot, so only print around once per second
+                                                   // (this will eventually be worth a utility script)
+        {
+            GD.Print("Fall acceleration * delta = " + fallAcceleration * delta);
+            GD.Print("Velocity = " + velocity);
+        }
+
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
