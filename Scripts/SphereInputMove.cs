@@ -35,11 +35,10 @@ public class SphereInputMove : KinematicBody
         }
         if (IsOnFloor() && Input.IsActionPressed("jump"))
         {
-            velocity.y += fallAcceleration * delta * 8;
+            velocity.y += fallAcceleration * delta * 16;
         }
         //debug Y acceleration measures
-        Utils.DebugPrintTimed(3, "Fall acceleration * delta = " + fallAcceleration * delta);
-        Utils.DebugPrintTimed(3, "Velocity = " + velocity);
+        //Utils.DebugPrintTimed(30, "Velocity = " + velocity);
 
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
