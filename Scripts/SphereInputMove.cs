@@ -50,7 +50,7 @@ public class SphereInputMove : KinematicBody
         }
         if (IsOnFloor() && Input.IsActionPressed("jump"))
         {
-            velocity.y += initialVelocityY * delta;
+            velocity.y = initialVelocityY;
         }
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
