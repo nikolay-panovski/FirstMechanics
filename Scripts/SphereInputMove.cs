@@ -7,23 +7,21 @@ using System;
 /// https://www.youtube.com/watch?v=hG9SzQxaCm8
 public class SphereInputMove : KinematicBody
 {
-    [Export] private int speed = 10;
+    [Export] private int speedX = 10;
 
     private Vector3 velocity = Vector3.Zero;
 
 
     [Export] private float jumpPeakHeight = 10f;    // default to maxHeight = 4 * character height; no exact science behind it
-    [Export] private float jumpPeakTime = 0.5f;
+    [Export] private float jumpPeakDistanceX = 2f;
 
     private float initialVelocityY;
     private float baseGravity;
 
     public override void _Ready()
     {
-        initialVelocityY = 2 * jumpPeakHeight / jumpPeakTime;
-        baseGravity = -2 * jumpPeakHeight / Mathf.Pow(jumpPeakTime, 2);
-        GD.Print(initialVelocityY);
-        GD.Print(baseGravity);
+        initialVelocityY = (2 * jumpPeakHeight * speedX) / jumpPeakDistanceX;
+        baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(speedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
     }
 
 
@@ -55,13 +53,13 @@ public class SphereInputMove : KinematicBody
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
-        velocity.x = direction.x * speed;
-        velocity.z = direction.z * speed;
+        velocity.x = direction.x * speedX;
+        velocity.z = direction.z * speedX;
         velocity.y += baseGravity * delta;  // leave the sign to the gravity variable
 
 
         //debug Y acceleration measures
-        Utils.DebugPrintTimed(30, "Velocity = " + velocity);
+        //Utils.DebugPrintTimed(30, "Velocity = " + velocity);
 
         velocity = MoveAndSlide(velocity, Vector3.Up);
     }
