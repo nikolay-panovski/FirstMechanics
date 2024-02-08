@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Materials/Green.tres" type="Material" id=1]
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=2]
@@ -33,6 +33,11 @@ height = 2.5
 material = ExtResource( 2 )
 height = 2.5
 radial_segments = 16
+
+[sub_resource type="CubeMesh" id=13]
+material = ExtResource( 4 )
+
+[sub_resource type="BoxShape" id=14]
 
 [sub_resource type="CubeMesh" id=5]
 material = ExtResource( 2 )
@@ -351,6 +356,27 @@ mesh = SubResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/TestCylinder4"]
 shape = SubResource( 9 )
+
+[node name="BoxTowerBlack" type="Spatial" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+
+[node name="TowerBoxBlack" type="KinematicBody" parent="Objects/BoxTowerBlack"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -9 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack/TowerBoxBlack"]
+mesh = SubResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/BoxTowerBlack/TowerBoxBlack"]
+shape = SubResource( 14 )
+
+[node name="TowerBoxBlack2" type="KinematicBody" parent="Objects/BoxTowerBlack"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, -9 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack/TowerBoxBlack2"]
+mesh = SubResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/BoxTowerBlack/TowerBoxBlack2"]
+shape = SubResource( 14 )
 
 [node name="Ground" type="Spatial" parent="."]
 

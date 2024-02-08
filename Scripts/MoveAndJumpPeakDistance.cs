@@ -16,6 +16,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
     [Export] private float jumpPeakDistanceX = 5f;  // half of total distance movable by full jump, assuming standard parabola
     [Export] private float fallGravityMultiplier = 2f;
     [Export] private float fallButtonGravityMultiplier = 3f;
+    [Export] private float terminalVelocityY = -40f;
 
     private float initialVelocityY;
     private float baseGravity;
@@ -68,6 +69,8 @@ public class MoveAndJumpPeakDistance : KinematicBody
         velocity.x = direction.x * speedX;
         velocity.z = direction.z * speedX;
         velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
+
+        velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
 
 
         //debug Y acceleration measures

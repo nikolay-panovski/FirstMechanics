@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 
 /// Based on tutorial at:
@@ -16,6 +16,7 @@ public class MoveAndJumpPeakTime : KinematicBody
     [Export] private float jumpPeakTime = 0.5f;
     [Export] private float fallGravityMultiplier = 2f;
     [Export] private float fallButtonGravityMultiplier = 3f;
+    [Export] private float terminalVelocityY = -40f;
 
     private float initialVelocityY;
     private float baseGravity;
@@ -70,6 +71,8 @@ public class MoveAndJumpPeakTime : KinematicBody
         velocity.x = direction.x * speed;
         velocity.z = direction.z * speed;
         velocity.y += baseGravity * delta;  // leave the sign to the gravity variable
+
+        velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
 
 
         //debug Y acceleration measures
