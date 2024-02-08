@@ -1,22 +1,14 @@
 ﻿using Godot;
 
-// Requires the parent to be a KinematicBody, else will throw. How to deal with this?
+// Can only be called by KinematicBodies.
 public class MoveLateralBasic : Node
 {
-    [Export] private int speedX = 10;
+    // ~~uh oh, coupling crap (see JumpByPeakDistance being coupled to this)
+    [Export] public int hSpeed { get; private set; } = 10;
 
-    private Vector3 velocity = Vector3.Zero;
-
-    private KinematicBody parent;
-
-    public override void _Ready()
+    public Vector3 GetLateralMoveVector()
     {
-        parent = GetParent<KinematicBody>();
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _PhysicsProcess(float delta)
-    {
+        Vector3 velocity = Vector3.Zero;
         Vector3 direction = Vector3.Zero;
 
         if (Input.IsActionPressed("move_right"))
@@ -38,13 +30,9 @@ public class MoveLateralBasic : Node
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
-        velocity.x = direction.x * speedX;
-        velocity.z = direction.z * speedX;
+        velocity.x = direction.x * hSpeed;
+        velocity.z = direction.z * hSpeed;
 
-
-        //debug Y acceleration measures
-        //Utils.DebugPrintTimed(30, "Velocity = " + velocity);
-
-        velocity = parent.MoveAndSlide(velocity, Vector3.Up);
+        return velocity;
     }
 }
