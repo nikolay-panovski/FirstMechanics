@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 
 /// Based on tutorial at:
@@ -70,7 +70,7 @@ public class MoveAndJumpPeakTime : KinematicBody
 
         velocity.x = direction.x * speed;
         velocity.z = direction.z * speed;
-        velocity.y += baseGravity * delta;  // leave the sign to the gravity variable
+        velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
 
         velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
 
