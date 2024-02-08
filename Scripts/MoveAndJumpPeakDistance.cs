@@ -5,15 +5,15 @@ using System;
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
 /// 
 /// https://www.youtube.com/watch?v=hG9SzQxaCm8
-public class SphereInputMove : KinematicBody
+public class MoveAndJumpPeakDistance : KinematicBody
 {
     [Export] private int speedX = 10;
 
     private Vector3 velocity = Vector3.Zero;
 
 
-    [Export] private float jumpPeakHeight = 10f;    // default to maxHeight = 4 * character height; no exact science behind it
-    [Export] private float jumpPeakDistanceX = 2f;
+    [Export] private float jumpPeakHeight = 5f;    // default to maxHeight = 2 * character height; no exact science behind it, hence no "characterHeight" variable
+    [Export] private float jumpPeakDistanceX = 5f;  // half of total distance movable by full jump, assuming standard parabola
 
     private float initialVelocityY;
     private float baseGravity;
