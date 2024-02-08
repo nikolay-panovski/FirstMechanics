@@ -11,7 +11,7 @@ public class MoveAndJumpPeakTime : KinematicBody
 
     private Vector3 velocity = Vector3.Zero;
 
-
+    [Export] private int maxNumberOfJumps = 2;
     [Export] private float jumpPeakHeight = 5f;    // default to maxHeight = 2 * character height; no exact science behind it, hence no "characterHeight" variable
     [Export] private float jumpPeakTime = 0.5f;
     [Export] private float fallGravityMultiplier = 2f;
@@ -20,13 +20,12 @@ public class MoveAndJumpPeakTime : KinematicBody
 
     private float initialVelocityY;
     private float baseGravity;
+    private int numberOfJumps;
 
     public override void _Ready()
     {
         initialVelocityY = 2 * jumpPeakHeight / jumpPeakTime;
         baseGravity = -2 * jumpPeakHeight / Mathf.Pow(jumpPeakTime, 2);
-        GD.Print(initialVelocityY);
-        GD.Print(baseGravity);
     }
 
 
@@ -53,9 +52,14 @@ public class MoveAndJumpPeakTime : KinematicBody
             direction.z += 1f;
         }
 
-        if (IsOnFloor() && Input.IsActionPressed("jump"))
+        if (IsOnFloor())
         {
-            velocity.y = initialVelocityY;
+            numberOfJumps = maxNumberOfJumps;
+        }
+        if (Input.IsActionJustPressed("jump"))
+        {
+            numberOfJumps = Mathf.Max(numberOfJumps--, 0);
+            if (numberOfJumps > 0) velocity.y = initialVelocityY;
         }
         if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
         {

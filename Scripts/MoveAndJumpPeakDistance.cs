@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 /// Based on tutorial at:
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
@@ -11,7 +12,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
     private Vector3 velocity = Vector3.Zero;
 
-
+    [Export] private int maxNumberOfJumps = 2;
     [Export] private float jumpPeakHeight = 5f;    // default to maxHeight = 2 * character height; no exact science behind it, hence no "characterHeight" variable
     [Export] private float jumpPeakDistanceX = 5f;  // half of total distance movable by full jump, assuming standard parabola
     [Export] private float fallGravityMultiplier = 2f;
@@ -20,6 +21,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
     private float initialVelocityY;
     private float baseGravity;
+    private int numberOfJumps;
 
     public override void _Ready()
     {
@@ -51,9 +53,15 @@ public class MoveAndJumpPeakDistance : KinematicBody
             direction.z += 1f;
         }
 
-        if (IsOnFloor() && Input.IsActionPressed("jump"))
+        if (IsOnFloor())
         {
-            velocity.y = initialVelocityY;
+            numberOfJumps = maxNumberOfJumps;
+        }
+        if (Input.IsActionJustPressed("jump"))
+        {
+            if (numberOfJumps > 0) velocity.y = initialVelocityY;
+            numberOfJumps--;
+            if (numberOfJumps < 0) numberOfJumps = 0;
         }
         if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
         {
@@ -74,7 +82,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
 
         //debug Y acceleration measures
-        //Utils.DebugPrintTimed(30, "Velocity = " + velocity);
+        Utils.DebugPrintTimed(30, "Velocity = " + velocity);
 
         velocity = MoveAndSlide(velocity, Vector3.Up);
     }
