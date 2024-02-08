@@ -14,6 +14,8 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
     [Export] private float jumpPeakHeight = 5f;    // default to maxHeight = 2 * character height; no exact science behind it, hence no "characterHeight" variable
     [Export] private float jumpPeakDistanceX = 5f;  // half of total distance movable by full jump, assuming standard parabola
+    [Export] private float fallGravityMultiplier = 2f;
+    [Export] private float fallButtonGravityMultiplier = 3f;
 
     private float initialVelocityY;
     private float baseGravity;
@@ -29,6 +31,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
     public override void _PhysicsProcess(float delta)
     {
         Vector3 direction = Vector3.Zero;
+        float actualGravity = baseGravity;
 
         if (Input.IsActionPressed("move_right"))
         {
@@ -46,16 +49,25 @@ public class MoveAndJumpPeakDistance : KinematicBody
         {
             direction.z += 1f;
         }
+
         if (IsOnFloor() && Input.IsActionPressed("jump"))
         {
             velocity.y = initialVelocityY;
+        }
+        if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
+        {
+            actualGravity = baseGravity * fallGravityMultiplier;
+        }
+        if (Input.IsActionPressed("fall_down"))
+        {
+            actualGravity = baseGravity * fallButtonGravityMultiplier;
         }
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
         velocity.x = direction.x * speedX;
         velocity.z = direction.z * speedX;
-        velocity.y += baseGravity * delta;  // leave the sign to the gravity variable
+        velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
 
 
         //debug Y acceleration measures

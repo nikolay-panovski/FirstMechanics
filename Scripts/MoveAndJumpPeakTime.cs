@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 
 /// Based on tutorial at:
@@ -14,6 +14,8 @@ public class MoveAndJumpPeakTime : KinematicBody
 
     [Export] private float jumpPeakHeight = 5f;    // default to maxHeight = 2 * character height; no exact science behind it, hence no "characterHeight" variable
     [Export] private float jumpPeakTime = 0.5f;
+    [Export] private float fallGravityMultiplier = 2f;
+    [Export] private float fallButtonGravityMultiplier = 3f;
 
     private float initialVelocityY;
     private float baseGravity;
@@ -31,6 +33,7 @@ public class MoveAndJumpPeakTime : KinematicBody
     public override void _PhysicsProcess(float delta)
     {
         Vector3 direction = Vector3.Zero;
+        float actualGravity = baseGravity;
 
         if (Input.IsActionPressed("move_right"))
         {
@@ -48,9 +51,18 @@ public class MoveAndJumpPeakTime : KinematicBody
         {
             direction.z += 1f;
         }
+
         if (IsOnFloor() && Input.IsActionPressed("jump"))
         {
             velocity.y = initialVelocityY;
+        }
+        if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
+        {
+            actualGravity = baseGravity * fallGravityMultiplier;
+        }
+        if (Input.IsActionPressed("fall_down"))
+        {
+            actualGravity = baseGravity * fallButtonGravityMultiplier;
         }
 
         if (direction != Vector3.Zero) direction = direction.Normalized();

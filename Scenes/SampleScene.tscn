@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Materials/Green.tres" type="Material" id=1]
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=2]
-[ext_resource path="res://Scripts/SphereInputMove.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/MoveAndJumpPeakDistance.cs" type="Script" id=3]
 [ext_resource path="res://Materials/Black.tres" type="Material" id=4]
 
 [sub_resource type="CylinderMesh" id=7]
@@ -56,6 +56,7 @@ enabled = true
 [node name="PlayerCylinder" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 )
 script = ExtResource( 3 )
+fallGravityMultiplier = 2.5
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/PlayerCylinder"]
 mesh = SubResource( 7 )
