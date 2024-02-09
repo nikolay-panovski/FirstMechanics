@@ -61,6 +61,7 @@ enabled = true
 [node name="PlayerCylinder" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 )
 script = ExtResource( 3 )
+timeToMaxSpeedX = 0.25
 maxNumberOfJumps = 3
 fallGravityMultiplier = 2.5
 terminalVelocityY = -50.0

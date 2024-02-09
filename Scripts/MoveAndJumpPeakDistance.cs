@@ -6,7 +6,8 @@ using Godot;
 /// https://www.youtube.com/watch?v=hG9SzQxaCm8
 public class MoveAndJumpPeakDistance : KinematicBody
 {
-    [Export] private int speedX = 10;
+    [Export] private float maxSpeedX = 10f;
+    [Export] private float timeToMaxSpeedX = 0.5f;
 
     private Vector3 velocity = Vector3.Zero;
 
@@ -18,6 +19,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
     [Export] private float terminalVelocityY = -40f;
     [Export] private float boostHInTiles = 2f;
 
+    private float timeHeldLateralButton;
     private float initialVelocityY;
     private float boostedHVelocityY;
     private float baseGravity;
@@ -25,8 +27,8 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
     public override void _Ready()
     {
-        initialVelocityY = (2 * jumpPeakHeight * speedX) / jumpPeakDistanceX;
-        baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(speedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
+        initialVelocityY = (2 * jumpPeakHeight * maxSpeedX) / jumpPeakDistanceX;
+        baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(maxSpeedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
 
         // max jump boost from horizontal speed - for the same horizontal velocity as a regular jump, at max horizontal speed add "boostHInTiles" tiles' worth of velocity to the final jump
         // paper notes contain how this was derived (thanks to Paul Bonsma)
@@ -45,6 +47,16 @@ public class MoveAndJumpPeakDistance : KinematicBody
     {
         Vector3 direction = Vector3.Zero;
         float actualGravity = baseGravity;
+
+        if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_forward") || Input.IsActionPressed("move_backward"))
+        {
+            timeHeldLateralButton += delta;
+            if (timeHeldLateralButton > timeToMaxSpeedX) timeHeldLateralButton = timeToMaxSpeedX;
+        }
+        else
+        {
+            timeHeldLateralButton = 0f;
+        }
 
         if (Input.IsActionPressed("move_right"))
         {
@@ -66,10 +78,9 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
-        velocity.x = direction.x * speedX;
-        velocity.z = direction.z * speedX;
+        velocity.x = Mathf.Lerp(0f, direction.x * maxSpeedX, timeHeldLateralButton / timeToMaxSpeedX);
+        velocity.z = Mathf.Lerp(0f, direction.z * maxSpeedX, timeHeldLateralButton / timeToMaxSpeedX);
 
-        // but without any other influences (acc/dec), when moving at all, velocityH.Length() == speedX.
         Vector3 velocityH = new Vector3(velocity.x, 0, velocity.z);
 
         if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
@@ -95,7 +106,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
         {
             if (numberOfJumps > 0)
             {
-                velocity.y = Mathf.Lerp(initialVelocityY, boostedHVelocityY, velocityH.Length() / speedX);
+                velocity.y = Mathf.Lerp(initialVelocityY, boostedHVelocityY, velocityH.Length() / maxSpeedX);
             }
 
             numberOfJumps--;
