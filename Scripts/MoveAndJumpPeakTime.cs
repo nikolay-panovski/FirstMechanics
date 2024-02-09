@@ -1,6 +1,8 @@
 using Godot;
-using System;
 
+/// USE MoveAndJumpPeakDistance. This one is merely what that one "derives" from, for all other purposes this is just
+/// an "alternative" with duplicate code that is not updated.
+/// 
 /// Based on tutorial at:
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
 /// 

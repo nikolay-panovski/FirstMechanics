@@ -53,7 +53,7 @@ transform = Transform( 1, 0, 0, 0, -0.0219894, 0.999758, 0, -0.999758, -0.021989
 
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
 target = NodePath("../Objects/PlayerCylinder/Pivot")
-speed = 7.0
+speed = 12.0
 enabled = true
 
 [node name="Objects" type="Spatial" parent="."]
@@ -63,6 +63,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 
 script = ExtResource( 3 )
 maxNumberOfJumps = 3
 fallGravityMultiplier = 2.5
+terminalVelocityY = -50.0
+horizontalBoostFraction = 1.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/PlayerCylinder"]
 mesh = SubResource( 7 )
@@ -71,7 +73,7 @@ mesh = SubResource( 7 )
 shape = SubResource( 4 )
 
 [node name="Pivot" type="Spatial" parent="Objects/PlayerCylinder"]
-transform = Transform( 1, 0, 0, 0, 0.92388, 0.382683, 0, -0.382683, 0.92388, 0, 4.5, 5.5 )
+transform = Transform( 1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 4.5, 5 )
 
 [node name="DefaultBoxWhite" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525, -2.685 )

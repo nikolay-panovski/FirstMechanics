@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Diagnostics;
 
 /// Based on tutorial at:
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
@@ -18,6 +16,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
     [Export] private float fallGravityMultiplier = 2f;
     [Export] private float fallButtonGravityMultiplier = 3f;
     [Export] private float terminalVelocityY = -40f;
+    [Export(PropertyHint.Range, "0.0,1.0")] private float horizontalBoostFraction = 0.125f;
 
     private float initialVelocityY;
     private float baseGravity;
@@ -53,13 +52,26 @@ public class MoveAndJumpPeakDistance : KinematicBody
             direction.z += 1f;
         }
 
+
+        if (direction != Vector3.Zero) direction = direction.Normalized();
+
+        velocity.x = direction.x * speedX;
+        velocity.z = direction.z * speedX;
+
+        Vector3 velocityH = new Vector3(velocity.x, 0, velocity.z);
+
         if (IsOnFloor())
         {
             numberOfJumps = maxNumberOfJumps;
         }
         if (Input.IsActionJustPressed("jump"))
         {
-            if (numberOfJumps > 0) velocity.y = initialVelocityY;
+            if (numberOfJumps > 0)
+            {
+                velocity.y = initialVelocityY;
+                velocity.y += velocityH.Length() * horizontalBoostFraction;
+            }
+
             numberOfJumps--;
             if (numberOfJumps < 0) numberOfJumps = 0;
         }
@@ -72,10 +84,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
             actualGravity = baseGravity * fallButtonGravityMultiplier;
         }
 
-        if (direction != Vector3.Zero) direction = direction.Normalized();
 
-        velocity.x = direction.x * speedX;
-        velocity.z = direction.z * speedX;
         velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
 
         velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
