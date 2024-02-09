@@ -7,9 +7,12 @@ using Godot;
 public class MoveAndJumpPeakDistance : KinematicBody
 {
     [Export] private float maxSpeedX = 10f;
-    [Export] private float timeToMaxSpeedX = 0.5f;
+    [Export] private float timeToAccelerateX = 0.5f;
+    [Export] private float timeToDecelerateX = 0.3f;
 
     private Vector3 velocity = Vector3.Zero;
+
+    private Vector3 direction = Vector3.Zero;
 
     [Export] private int maxNumberOfJumps = 2;
     [Export] private float jumpPeakHeight = 5f;    // default to maxHeight = 2 * character height; no exact science behind it, hence no "characterHeight" variable
@@ -20,6 +23,8 @@ public class MoveAndJumpPeakDistance : KinematicBody
     [Export] private float boostHInTiles = 2f;
 
     private float timeHeldLateralButton;
+    private float timeReleasedLateralButton;
+    private float speedX;
     private float initialVelocityY;
     private float boostedHVelocityY;
     private float baseGravity;
@@ -45,41 +50,47 @@ public class MoveAndJumpPeakDistance : KinematicBody
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
-        Vector3 direction = Vector3.Zero;
         float actualGravity = baseGravity;
 
         if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_forward") || Input.IsActionPressed("move_backward"))
         {
+            timeReleasedLateralButton = 0f;
             timeHeldLateralButton += delta;
-            if (timeHeldLateralButton > timeToMaxSpeedX) timeHeldLateralButton = timeToMaxSpeedX;
+            if (timeHeldLateralButton > timeToAccelerateX) timeHeldLateralButton = timeToAccelerateX;
+            speedX = Mathf.Lerp(0f, maxSpeedX, timeHeldLateralButton / timeToAccelerateX);
+
+            direction = Vector3.Zero;
         }
         else
         {
             timeHeldLateralButton = 0f;
+            timeReleasedLateralButton += delta;
+            if (timeReleasedLateralButton > timeToDecelerateX) timeReleasedLateralButton = timeToDecelerateX;
+            speedX = Mathf.Lerp(maxSpeedX, 0f, timeReleasedLateralButton / timeToDecelerateX);
         }
 
         if (Input.IsActionPressed("move_right"))
         {
-            direction.x += 1f;
+            direction.x = 1f;
         }
         if (Input.IsActionPressed("move_left"))
         {
-            direction.x -= 1f;
+            direction.x = -1f;
         }
         if (Input.IsActionPressed("move_forward"))
         {
-            direction.z -= 1f;
+            direction.z = -1f;
         }
         if (Input.IsActionPressed("move_backward"))
         {
-            direction.z += 1f;
+            direction.z = 1f;
         }
 
 
         if (direction != Vector3.Zero) direction = direction.Normalized();
 
-        velocity.x = Mathf.Lerp(0f, direction.x * maxSpeedX, timeHeldLateralButton / timeToMaxSpeedX);
-        velocity.z = Mathf.Lerp(0f, direction.z * maxSpeedX, timeHeldLateralButton / timeToMaxSpeedX);
+        velocity.x = direction.x * speedX;
+        velocity.z = direction.z * speedX;
 
         Vector3 velocityH = new Vector3(velocity.x, 0, velocity.z);
 
