@@ -64,7 +64,7 @@ script = ExtResource( 3 )
 maxNumberOfJumps = 3
 fallGravityMultiplier = 2.5
 terminalVelocityY = -50.0
-boostHInTiles = 3.0
+boostHInTiles = 2.5
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/PlayerCylinder"]
 mesh = SubResource( 7 )
@@ -394,6 +394,7 @@ mesh = SubResource( 13 )
 shape = SubResource( 14 )
 
 [node name="TestCylinderStack" type="Spatial" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
 
 [node name="TestCylinder" type="StaticBody" parent="Objects/TestCylinderStack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.25, 0 )
@@ -431,8 +432,37 @@ mesh = SubResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Objects/TestCylinderStack/TestCylinder4"]
 shape = SubResource( 9 )
 
+[node name="TestCylinderStack4" type="Spatial" parent="Objects"]
+
+[node name="TestCylinder" type="StaticBody" parent="Objects/TestCylinderStack4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.25, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack4/TestCylinder"]
+mesh = SubResource( 8 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/TestCylinderStack4/TestCylinder"]
+shape = SubResource( 9 )
+
+[node name="TestCylinder2" type="StaticBody" parent="Objects/TestCylinderStack4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.75, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack4/TestCylinder2"]
+mesh = SubResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/TestCylinderStack4/TestCylinder2"]
+shape = SubResource( 9 )
+
+[node name="TestCylinder3" type="StaticBody" parent="Objects/TestCylinderStack4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.25, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack4/TestCylinder3"]
+mesh = SubResource( 8 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/TestCylinderStack4/TestCylinder3"]
+shape = SubResource( 9 )
+
 [node name="TestCylinderStack3" type="Spatial" parent="Objects"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
 
 [node name="TestCylinder" type="StaticBody" parent="Objects/TestCylinderStack3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.25, 0 )

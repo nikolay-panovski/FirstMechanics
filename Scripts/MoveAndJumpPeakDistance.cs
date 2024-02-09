@@ -16,9 +16,10 @@ public class MoveAndJumpPeakDistance : KinematicBody
     [Export] private float fallGravityMultiplier = 2f;
     [Export] private float fallButtonGravityMultiplier = 3f;
     [Export] private float terminalVelocityY = -40f;
-    [Export(PropertyHint.Range, "0.0,1.0")] private float horizontalBoostFraction = 0.125f;
+    [Export] private float boostHInTiles = 2f;
 
     private float initialVelocityY;
+    private float boostedHVelocityY;
     private float baseGravity;
     private int numberOfJumps;
 
@@ -26,6 +27,16 @@ public class MoveAndJumpPeakDistance : KinematicBody
     {
         initialVelocityY = (2 * jumpPeakHeight * speedX) / jumpPeakDistanceX;
         baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(speedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
+
+        // max jump boost from horizontal speed - for the same horizontal velocity as a regular jump, at max horizontal speed add "boostHInTiles" tiles' worth of velocity to the final jump
+        // paper notes contain how this was derived (thanks to Paul Bonsma)
+        // What we want: put "boosted jump height" in the inspector, and calculate the boostedVelocity based on that.
+        // (Given: initVel, baseGrav - !! those don't change)
+        boostedHVelocityY = Mathf.Sqrt(-2 * baseGravity * (jumpPeakHeight + boostHInTiles));
+
+        // = -baseGravity * jumpPeakDistanceX / speedX;
+        // = boostHInTiles / jumpPeakHeight * initialVelocityY;
+        // = (2 * boostHInTiles * speedX) / jumpPeakDistanceX
     }
 
 
@@ -58,23 +69,9 @@ public class MoveAndJumpPeakDistance : KinematicBody
         velocity.x = direction.x * speedX;
         velocity.z = direction.z * speedX;
 
+        // but without any other influences (acc/dec), when moving at all, velocityH.Length() == speedX.
         Vector3 velocityH = new Vector3(velocity.x, 0, velocity.z);
 
-        if (IsOnFloor())
-        {
-            numberOfJumps = maxNumberOfJumps;
-        }
-        if (Input.IsActionJustPressed("jump"))
-        {
-            if (numberOfJumps > 0)
-            {
-                velocity.y = initialVelocityY;
-                velocity.y += velocityH.Length() * horizontalBoostFraction;
-            }
-
-            numberOfJumps--;
-            if (numberOfJumps < 0) numberOfJumps = 0;
-        }
         if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
         {
             actualGravity = baseGravity * fallGravityMultiplier;
@@ -90,8 +87,24 @@ public class MoveAndJumpPeakDistance : KinematicBody
         velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
 
 
+        if (IsOnFloor())
+        {
+            numberOfJumps = maxNumberOfJumps;
+        }
+        if (Input.IsActionJustPressed("jump"))
+        {
+            if (numberOfJumps > 0)
+            {
+                velocity.y = Mathf.Lerp(initialVelocityY, boostedHVelocityY, velocityH.Length() / speedX);
+            }
+
+            numberOfJumps--;
+            if (numberOfJumps < 0) numberOfJumps = 0;
+        }
+
+
         //debug Y acceleration measures
-        Utils.DebugPrintTimed(30, "Velocity = " + velocity);
+        Utils.DebugPrintTimed(30, velocity);
 
         velocity = MoveAndSlide(velocity, Vector3.Up);
     }
