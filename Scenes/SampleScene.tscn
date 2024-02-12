@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Materials/Green.tres" type="Material" id=1]
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=2]
 [ext_resource path="res://Scripts/MoveAndJumpPeakDistance.cs" type="Script" id=3]
 [ext_resource path="res://Materials/Black.tres" type="Material" id=4]
+[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CylinderMesh" id=7]
 material = ExtResource( 1 )
@@ -542,3 +543,17 @@ mesh = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground/Ground"]
 shape = SubResource( 2 )
+
+[node name="Coins" type="Spatial" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.39568, 0, 4.22539 )
+
+[node name="Coin2" parent="Coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.39575, 0, 4.47939 )
+
+[node name="Coin3" parent="Coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00306, 7.76786, 0.122048 )
+
+[node name="Coin4" parent="Coins" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0144, 12.7239, 0.122048 )
