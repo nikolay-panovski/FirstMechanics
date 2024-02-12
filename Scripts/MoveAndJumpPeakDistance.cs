@@ -142,7 +142,7 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
 
         //debug Y acceleration measures
-        Utils.DebugPrintTimed(30, velocity);
+        //Utils.DebugPrintTimed(30, velocity);
 
         velocity = MoveAndSlide(velocity, Vector3.Up);
     }
