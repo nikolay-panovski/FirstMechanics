@@ -547,13 +547,13 @@ shape = SubResource( 2 )
 [node name="Coins" type="Spatial" parent="."]
 
 [node name="Coin" parent="Coins" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.39568, 0, 4.22539 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.39568, 0.640371, 12.6622 )
 
 [node name="Coin2" parent="Coins" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.39575, 0, 4.47939 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2337, 1.26327, 4.47939 )
 
 [node name="Coin3" parent="Coins" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00306, 7.76786, 0.122048 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.98919, 8.35082, 0.122048 )
 
 [node name="Coin4" parent="Coins" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0144, 12.7239, 0.122048 )
