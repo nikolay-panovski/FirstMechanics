@@ -19,6 +19,7 @@ script = ExtResource( 3 )
 rotationSpeedDegrees = 2.5
 
 [node name="Area" type="Area" parent="."]
+collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0 )

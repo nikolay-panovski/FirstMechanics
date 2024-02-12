@@ -61,6 +61,7 @@ enabled = true
 
 [node name="PlayerCylinder" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 )
+collision_mask = 6
 script = ExtResource( 3 )
 groundTimeToAccelerateX = 0.25
 groundTimeToDecelerateX = 0.15
@@ -81,6 +82,7 @@ transform = Transform( 1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 4.5, 5 )
 
 [node name="DefaultBoxWhite" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.685 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/DefaultBoxWhite"]
 mesh = SubResource( 6 )
@@ -90,6 +92,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxBlack" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.955, 0, -2.685 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/DefaultBoxBlack"]
 mesh = SubResource( 10 )
@@ -103,6 +106,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxWhite2" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -10 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite2"]
 mesh = SubResource( 6 )
@@ -112,6 +116,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite3" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite3"]
 mesh = SubResource( 6 )
@@ -121,6 +126,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite5" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -16 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite5"]
 mesh = SubResource( 6 )
@@ -130,6 +136,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite13" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -12 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite13"]
 mesh = SubResource( 6 )
@@ -139,6 +146,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite14" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -16 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite14"]
 mesh = SubResource( 6 )
@@ -148,6 +156,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite4" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -14 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite4"]
 mesh = SubResource( 6 )
@@ -157,6 +166,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite6" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -18 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite6"]
 mesh = SubResource( 6 )
@@ -166,6 +176,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite7" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -10 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite7"]
 mesh = SubResource( 6 )
@@ -175,6 +186,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite8" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -14 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite8"]
 mesh = SubResource( 6 )
@@ -184,6 +196,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite9" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -18 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite9"]
 mesh = SubResource( 6 )
@@ -193,6 +206,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite10" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -10 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite10"]
 mesh = SubResource( 6 )
@@ -202,6 +216,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite11" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -14 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite11"]
 mesh = SubResource( 6 )
@@ -211,6 +226,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxWhite12" type="KinematicBody" parent="Objects/TileBoxes/White"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -18 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/White/DefaultBoxWhite12"]
 mesh = SubResource( 6 )
@@ -222,6 +238,7 @@ shape = SubResource( 3 )
 
 [node name="DefaultBoxBlack2" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -12 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack2"]
 mesh = SubResource( 10 )
@@ -231,6 +248,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack8" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack8"]
 mesh = SubResource( 10 )
@@ -240,6 +258,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack9" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -14 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack9"]
 mesh = SubResource( 10 )
@@ -249,6 +268,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack10" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -18 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack10"]
 mesh = SubResource( 10 )
@@ -258,6 +278,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack11" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack11"]
 mesh = SubResource( 10 )
@@ -267,6 +288,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack12" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -14 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack12"]
 mesh = SubResource( 10 )
@@ -276,6 +298,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack13" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -18 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack13"]
 mesh = SubResource( 10 )
@@ -285,6 +308,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack3" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -16 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack3"]
 mesh = SubResource( 10 )
@@ -294,6 +318,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack4" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -12 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack4"]
 mesh = SubResource( 10 )
@@ -303,6 +328,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack5" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -16 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack5"]
 mesh = SubResource( 10 )
@@ -312,6 +338,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack6" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -12 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack6"]
 mesh = SubResource( 10 )
@@ -321,6 +348,7 @@ shape = SubResource( 12 )
 
 [node name="DefaultBoxBlack7" type="KinematicBody" parent="Objects/TileBoxes/Black"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -16 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TileBoxes/Black/DefaultBoxBlack7"]
 mesh = SubResource( 10 )
@@ -333,6 +361,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.5, -9 )
 
 [node name="TowerBoxBlack" type="KinematicBody" parent="Objects/BoxTowerBlack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack/TowerBoxBlack"]
 mesh = SubResource( 13 )
@@ -342,6 +371,7 @@ shape = SubResource( 14 )
 
 [node name="TowerBoxBlack2" type="KinematicBody" parent="Objects/BoxTowerBlack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack/TowerBoxBlack2"]
 mesh = SubResource( 13 )
@@ -354,6 +384,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.5, -9 )
 
 [node name="TowerBoxBlack" type="KinematicBody" parent="Objects/BoxTowerBlack2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack2/TowerBoxBlack"]
 mesh = SubResource( 13 )
@@ -363,6 +394,7 @@ shape = SubResource( 14 )
 
 [node name="TowerBoxBlack2" type="KinematicBody" parent="Objects/BoxTowerBlack2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack2/TowerBoxBlack2"]
 mesh = SubResource( 13 )
@@ -372,6 +404,7 @@ shape = SubResource( 14 )
 
 [node name="TowerBoxBlack3" type="KinematicBody" parent="Objects/BoxTowerBlack2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack2/TowerBoxBlack3"]
 mesh = SubResource( 13 )
@@ -381,6 +414,7 @@ shape = SubResource( 14 )
 
 [node name="TowerBoxBlack4" type="KinematicBody" parent="Objects/BoxTowerBlack2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/BoxTowerBlack2/TowerBoxBlack4"]
 mesh = SubResource( 13 )
@@ -402,6 +436,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
 
 [node name="TestCylinder" type="StaticBody" parent="Objects/TestCylinderStack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack/TestCylinder"]
 mesh = SubResource( 8 )
@@ -411,6 +446,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder2" type="StaticBody" parent="Objects/TestCylinderStack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.75, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack/TestCylinder2"]
 mesh = SubResource( 11 )
@@ -420,6 +456,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder3" type="StaticBody" parent="Objects/TestCylinderStack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack/TestCylinder3"]
 mesh = SubResource( 8 )
@@ -429,6 +466,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder4" type="StaticBody" parent="Objects/TestCylinderStack"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 7.75, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack/TestCylinder4"]
 mesh = SubResource( 11 )
@@ -440,6 +478,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder" type="StaticBody" parent="Objects/TestCylinderStack4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack4/TestCylinder"]
 mesh = SubResource( 8 )
@@ -449,6 +488,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder2" type="StaticBody" parent="Objects/TestCylinderStack4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.75, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack4/TestCylinder2"]
 mesh = SubResource( 11 )
@@ -458,6 +498,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder3" type="StaticBody" parent="Objects/TestCylinderStack4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack4/TestCylinder3"]
 mesh = SubResource( 8 )
@@ -470,6 +511,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
 
 [node name="TestCylinder" type="StaticBody" parent="Objects/TestCylinderStack3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack3/TestCylinder"]
 mesh = SubResource( 8 )
@@ -479,6 +521,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder2" type="StaticBody" parent="Objects/TestCylinderStack3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.75, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack3/TestCylinder2"]
 mesh = SubResource( 11 )
@@ -488,6 +531,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder3" type="StaticBody" parent="Objects/TestCylinderStack3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack3/TestCylinder3"]
 mesh = SubResource( 8 )
@@ -497,6 +541,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder4" type="StaticBody" parent="Objects/TestCylinderStack3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 7.75, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack3/TestCylinder4"]
 mesh = SubResource( 11 )
@@ -506,6 +551,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder5" type="StaticBody" parent="Objects/TestCylinderStack3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 10.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack3/TestCylinder5"]
 mesh = SubResource( 11 )
@@ -517,6 +563,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder5" type="StaticBody" parent="Objects/TestCylinderStack2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.25, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack2/TestCylinder5"]
 mesh = SubResource( 8 )
@@ -526,6 +573,7 @@ shape = SubResource( 9 )
 
 [node name="TestCylinder6" type="StaticBody" parent="Objects/TestCylinderStack2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2.75, 0 )
+collision_layer = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects/TestCylinderStack2/TestCylinder6"]
 mesh = SubResource( 11 )
@@ -537,6 +585,7 @@ shape = SubResource( 9 )
 
 [node name="Ground" type="StaticBody" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+collision_layer = 2
 
 [node name="FloorBox" type="MeshInstance" parent="Ground/Ground"]
 mesh = SubResource( 5 )
@@ -547,13 +596,13 @@ shape = SubResource( 2 )
 [node name="Coins" type="Spatial" parent="."]
 
 [node name="Coin" parent="Coins" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.39568, 0.640371, 12.6622 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505959, -0.129843, 2.26562 )
 
 [node name="Coin2" parent="Coins" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2337, 1.26327, 4.47939 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2337, -0.0970187, 4.47939 )
 
 [node name="Coin3" parent="Coins" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.98919, 8.35082, 0.122048 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.50812, 7.25425, 0.122048 )
 
 [node name="Coin4" parent="Coins" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0144, 12.7239, 0.122048 )
