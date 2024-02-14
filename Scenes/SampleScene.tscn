@@ -1,10 +1,13 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Materials/Green.tres" type="Material" id=1]
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=2]
 [ext_resource path="res://Scripts/MoveAndJumpPeakDistance.cs" type="Script" id=3]
 [ext_resource path="res://Materials/Black.tres" type="Material" id=4]
-[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Prefabs/Coin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=6]
+[ext_resource path="res://Scripts/BreakableKickForceModifier.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/BreakableCheckImpactForBreak.cs" type="Script" id=8]
 
 [sub_resource type="CylinderMesh" id=7]
 material = ExtResource( 1 )
@@ -99,6 +102,29 @@ mesh = SubResource( 10 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/DefaultBoxBlack"]
 shape = SubResource( 12 )
+
+[node name="BreakableBoxBrown" type="RigidBody" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.332, 0, -2.685 )
+collision_layer = 2
+collision_mask = 3
+contacts_reported = 2
+contact_monitor = true
+can_sleep = false
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource( 8 )
+maxCollisionVelocity = 20.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/BreakableBoxBrown"]
+material_override = ExtResource( 6 )
+mesh = SubResource( 10 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/BreakableBoxBrown"]
+shape = SubResource( 3 )
+
+[node name="KickForceModifier" type="Node" parent="Objects/BreakableBoxBrown"]
+script = ExtResource( 7 )
+kickForce = 400.0
 
 [node name="TileBoxes" type="Spatial" parent="Objects"]
 
@@ -595,6 +621,23 @@ shape = SubResource( 2 )
 
 [node name="Coins" type="Spatial" parent="."]
 
+[node name="CoinArc" type="Spatial" parent="Coins"]
+
+[node name="Coin5" parent="Coins/CoinArc" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1254, -0.129843, -8.96656 )
+
+[node name="Coin6" parent="Coins/CoinArc" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5692, 1.94019, -10.86 )
+
+[node name="Coin7" parent="Coins/CoinArc" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.6482, 2.6709, -12.4028 )
+
+[node name="Coin8" parent="Coins/CoinArc" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2329, 1.92141, -14.5249 )
+
+[node name="Coin9" parent="Coins/CoinArc" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.447, 0.0942705, -16.6707 )
+
 [node name="Coin" parent="Coins" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505959, -0.129843, 2.26562 )
 
@@ -606,3 +649,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.50812, 7.25425, 0.122048 )
 
 [node name="Coin4" parent="Coins" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0144, 12.7239, 0.122048 )
+
+[connection signal="body_entered" from="Objects/BreakableBoxBrown" to="Objects/BreakableBoxBrown/KickForceModifier" method="OnBodyEntered"]
