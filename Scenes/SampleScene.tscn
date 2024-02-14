@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Materials/Green.tres" type="Material" id=1]
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=6]
 [ext_resource path="res://Scripts/BreakableKickForceModifier.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/BreakableCheckImpactForBreak.cs" type="Script" id=8]
+[ext_resource path="res://Materials/RedSpikes.tres" type="Material" id=9]
+[ext_resource path="res://Scripts/KnockbackCalculator.cs" type="Script" id=10]
 
 [sub_resource type="CylinderMesh" id=7]
 material = ExtResource( 1 )
@@ -50,6 +52,16 @@ size = Vector3( 100, 2, 100 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 50, 1, 50 )
 
+[sub_resource type="CubeMesh" id=15]
+
+[sub_resource type="BoxShape" id=16]
+
+[sub_resource type="BoxShape" id=18]
+extents = Vector3( 8, 1, 8 )
+
+[sub_resource type="PrismMesh" id=17]
+material = ExtResource( 9 )
+
 [node name="Root" type="Spatial"]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
@@ -82,6 +94,9 @@ shape = SubResource( 4 )
 
 [node name="Pivot" type="Spatial" parent="Objects/PlayerCylinder"]
 transform = Transform( 1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 4.5, 5 )
+
+[node name="KnockbackCalculator" type="Node" parent="Objects/PlayerCylinder"]
+script = ExtResource( 10 )
 
 [node name="DefaultBoxWhite" type="KinematicBody" parent="Objects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.685 )
@@ -649,5 +664,303 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.50812, 7.25425, 0.122048 )
 
 [node name="Coin4" parent="Coins" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0144, 12.7239, 0.122048 )
+
+[node name="PitSpikes" type="Spatial" parent="."]
+
+[node name="PitWall" type="StaticBody" parent="PitSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 8, 18, 0, -28 )
+collision_layer = 2
+
+[node name="MeshInstance" type="MeshInstance" parent="PitSpikes/PitWall"]
+mesh = SubResource( 15 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="PitSpikes/PitWall"]
+shape = SubResource( 16 )
+
+[node name="PitWall2" type="StaticBody" parent="PitSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 8, 36, 0, -28 )
+collision_layer = 2
+
+[node name="MeshInstance" type="MeshInstance" parent="PitSpikes/PitWall2"]
+mesh = SubResource( 15 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="PitSpikes/PitWall2"]
+shape = SubResource( 16 )
+
+[node name="PitWall3" type="StaticBody" parent="PitSpikes"]
+transform = Transform( -4.37114e-08, 0, 8, 0, 1, 0, -1, 0, -3.49691e-07, 27, 0, -37 )
+collision_layer = 2
+
+[node name="MeshInstance" type="MeshInstance" parent="PitSpikes/PitWall3"]
+mesh = SubResource( 15 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="PitSpikes/PitWall3"]
+shape = SubResource( 16 )
+
+[node name="FieldOfSpikes" type="StaticBody" parent="PitSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -21 )
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7 )
+shape = SubResource( 18 )
+
+[node name="Spike1" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+mesh = SubResource( 17 )
+
+[node name="Spike2" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike3" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike4" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike5" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike6" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike7" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike8" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0 )
+mesh = SubResource( 17 )
+
+[node name="Spike9" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike10" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike11" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike12" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike13" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike14" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike15" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike16" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -2 )
+mesh = SubResource( 17 )
+
+[node name="Spike17" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike18" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike19" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike20" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike21" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike22" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike23" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike24" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -4 )
+mesh = SubResource( 17 )
+
+[node name="Spike25" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike26" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike27" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike28" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike29" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike30" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike31" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike32" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -6 )
+mesh = SubResource( 17 )
+
+[node name="Spike33" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike34" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike35" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike36" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike37" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike38" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike39" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike40" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -8 )
+mesh = SubResource( 17 )
+
+[node name="Spike41" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike42" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike43" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike44" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike45" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike46" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike47" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike48" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -10 )
+mesh = SubResource( 17 )
+
+[node name="Spike49" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike50" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike51" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike52" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike53" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike54" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike55" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike56" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -12 )
+mesh = SubResource( 17 )
+
+[node name="Spike57" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike58" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike59" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike60" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike61" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike62" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike63" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -14 )
+mesh = SubResource( 17 )
+
+[node name="Spike64" type="MeshInstance" parent="PitSpikes/FieldOfSpikes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -14 )
+mesh = SubResource( 17 )
 
 [connection signal="body_entered" from="Objects/BreakableBoxBrown" to="Objects/BreakableBoxBrown/KickForceModifier" method="OnBodyEntered"]

@@ -1,5 +1,9 @@
 using Godot;
 
+/// This is currently the "god script" of the player character, with its core being movement, but potentially far and tightly coupled reach.
+/// For this I blame whatever the recommended Godot architecture is for being confusing, coming from a Components background (Unity).
+/// I will NOT use GetNode("../../../..")... as a substitute.
+/// 
 /// Based on tutorial at:
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
 /// 
@@ -145,5 +149,6 @@ public class MoveAndJumpPeakDistance : KinematicBody
         //Utils.DebugPrintTimed(30, velocity);
 
         velocity = MoveAndSlide(velocity, Vector3.Up);
+        //MoveAndCollide(velocity, testOnly: true);
     }
 }
