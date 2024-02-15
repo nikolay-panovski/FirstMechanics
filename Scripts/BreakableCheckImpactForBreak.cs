@@ -7,7 +7,7 @@ public class BreakableCheckImpactForBreak : RigidBody
 
     public override void _IntegrateForces(PhysicsDirectBodyState state)
     {
-        GD.Print(state.LinearVelocity + " with length" + state.LinearVelocity.Length());
+        //GD.Print(state.LinearVelocity + " with length" + state.LinearVelocity.Length());
 
         if (state.LinearVelocity.Length() > maxCollisionVelocity)
         {

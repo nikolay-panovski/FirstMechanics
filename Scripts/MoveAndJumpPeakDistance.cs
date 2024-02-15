@@ -8,7 +8,7 @@ using Godot;
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
 /// 
 /// https://www.youtube.com/watch?v=hG9SzQxaCm8
-public class MoveAndJumpPeakDistance : KinematicBody
+public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 {
     [Export] private float maxSpeedX = 10f;
     [Export] private float groundTimeToAccelerateX = 0.5f;
@@ -28,6 +28,8 @@ public class MoveAndJumpPeakDistance : KinematicBody
     [Export] private float terminalVelocityY = -40f;
     [Export] private float boostHInTiles = 2f;
 
+    [Export] private float hitInvincibilitySeconds = 1f;
+
     private float timeHeldLateralButton;
     private float timeReleasedLateralButton;
     private float speedX;
@@ -37,8 +39,14 @@ public class MoveAndJumpPeakDistance : KinematicBody
     private float baseGravity;
     private int numberOfJumps;
 
+    private KnockbackCalculator knockback;
+    private Timer invincibilityTimer;
+
     public override void _Ready()
     {
+        knockback = GetNode<KnockbackCalculator>(new NodePath("KnockbackCalculator"));
+        invincibilityTimer = GetNode<Timer>(new NodePath("HitTimer"));
+
         initialVelocityY = (2 * jumpPeakHeight * maxSpeedX) / jumpPeakDistanceX;
         baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(maxSpeedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
 
@@ -147,8 +155,37 @@ public class MoveAndJumpPeakDistance : KinematicBody
 
         //debug Y acceleration measures
         //Utils.DebugPrintTimed(30, velocity);
+        Utils.DebugPrintTimed(15, invincibilityTimer.TimeLeft);
 
-        velocity = MoveAndSlide(velocity, Vector3.Up);
+        velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: false);
         //MoveAndCollide(velocity, testOnly: true);
+
+
+        //if (GetLastSlideCollision().Collider)
+        // above is insufficient information to *easily* identify the collider,
+        // use Area and its signals instead.
+    }
+
+    public void TakeHurtboxCollisionEffect()
+    {
+        // CALL on touching a hurtbox area
+        // report linear velocity 
+        // calculate knockback from that
+        // stun player (do not accept input)
+        // apply the knockback (only use MoveAndCollide for movement, but take same gravity as above into account)
+        // -> properly fixing all of these will take quite long and points towards code architecture and FSM, therefore only sufficiently patch it together
+        
+        // print the fact of knockback
+
+        if (invincibilityTimer.TimeLeft == 0)
+        {
+            invincibilityTimer.Start(hitInvincibilitySeconds);
+
+            Vector3 knockbackVelocity;
+            knockbackVelocity = knockback.CalculateKnockbackVelocity(velocity);
+            MoveAndCollide(knockbackVelocity);
+            GD.Print("Knockback, moved by " + knockbackVelocity);
+        }
+        // else: player still has iframes, do not parse the hurtbox collision as such for this duration
     }
 }
