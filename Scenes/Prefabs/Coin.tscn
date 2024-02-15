@@ -312,8 +312,9 @@ animationName = "Coin_Collected_Disappear"
 
 [node name="TestHandler" type="Node" parent="."]
 script = ExtResource( 4 )
+genericGameObjectRef = NodePath("../Area")
 
 [connection signal="CollectibleBodyEntered" from="." to="TestHandler" method="OnCollectibleBodyEnteredPrint"]
-[connection signal="body_entered" from="Area" to="." method="OnBodyEnteredEmit"]
 [connection signal="body_entered" from="Area" to="." method="OnBodyEnteredPlayDestroyAnimation"]
+[connection signal="body_entered" from="Area" to="." method="OnBodyEnteredEmit"]
 [connection signal="animation_finished" from="DestructionPlayer" to="." method="OnAnimationFinished"]
