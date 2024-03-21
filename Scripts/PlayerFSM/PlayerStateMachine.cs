@@ -21,6 +21,8 @@ public class PlayerStateMachine : Node
 
     public override void _UnhandledInput(InputEvent inputEvent)
     {
+        // InputEvent -> Input.IsActionPressed??
+        // on types of Input-stuff, for example: https://www.reddit.com/r/godot/comments/dh0n6n/eli5_difference_between_input_inputevent/
         currentState.HandleInput(inputEvent);
     }
 

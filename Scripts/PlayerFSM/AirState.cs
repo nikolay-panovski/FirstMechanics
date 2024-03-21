@@ -1,19 +1,23 @@
 using Godot;
 using System;
 
-public class GroundedState : PlayerState
+public class AirState : PlayerState
 {
     // [Export] private float maxSpeedX;    // shared
 
-    // [Export] private float groundTimeToAccelerateX;
-    // [Export] private float groundTimeToDecelerateX;
+    // [Export] private float airTimeToAccelerateX;
+    // [Export] private float airTimeToDecelerateX;
+
+    //[Export] private int maxNumberOfAirJumps = 2;
 
     //private Vector3 velocity = Vector3.Zero;  // shared
     //private Vector3 direction = Vector3.Zero; // shared
 
-    //[Export] private float jumpPeakHeight = 5f;       // shared
+    //[Export] private float jumpPeakHeight = 5f;       // shared (if air jumps)
     //[Export] private float jumpPeakDistanceX = 5f;    // shared
-    //[Export] private float boostHInTiles = 2f;
+    //[Export] private float fallGravityMultiplier = 2f;
+    //[Export] private float fallButtonGravityMultiplier = 3f;
+    //[Export] private float terminalVelocityY = -40f;
 
     //private float timeHeldLateralButton;      // shared; ??
     //private float timeReleasedLateralButton;  // shared; ??
@@ -21,14 +25,12 @@ public class GroundedState : PlayerState
     //private float previousSpeedX;             // shared; ??
     //private float initialVelocityY;           // shared?; ??
     //private float boostedHVelocityY;          // shared?; ??
+    //private float baseGravity;        // for upwards
+    //private int numberOfAirJumps;
 
     public override void HandleInput(InputEvent inputEvent)
     {
-        if (inputEvent.IsActionPressed("jump"))
-        {
-            // handle jump (apply jump velocity)
-            // some things will get unnecessarily complicated, such as carrying around the maxNumJumps variable
-        }
+        // 
         throw new NotImplementedException();
     }
 
@@ -39,10 +41,11 @@ public class GroundedState : PlayerState
 
     public override void PhysicsUpdate(float deltaTime)
     {
-        // handle horizontal moves as constant Input.IsXWhatever input
-        // and leftover velocity from previous state too
+        // handle horizontal moves
 
-        // air state should kick in whether jumping or falling
+        // handle jump (apply jump velocity) IF maxNumJumps is defined and > 0
+
+        // but air state should kick in all the same when falling
         if (!playerBody.IsOnFloor())
         {
             stateMachine.TransitionTo("AirState");
@@ -54,7 +57,8 @@ public class GroundedState : PlayerState
 
     public override void Enter()
     {
-        // coming back from airborne state, apply remaining momentum or something [NEEDS MESSAGE]
+        // assume we can only enter from Grounded state
+        // (re)set maxNumJumps here, if any.
         throw new NotImplementedException();
     }
 
