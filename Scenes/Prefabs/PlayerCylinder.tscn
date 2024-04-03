@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Materials/Green.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/KnockbackCalculator.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/MoveAndJumpPeakDistance.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/PlayerFSM/PlayerStateMachine.cs" type="Script" id=4]
-[ext_resource path="res://Scripts/PlayerFSM/IdleState.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/PlayerFSM/GroundedState.cs" type="Script" id=5]
 [ext_resource path="res://Scripts/PlayerFSM/AirState.cs" type="Script" id=6]
 [ext_resource path="res://Scripts/PlayerFSM/KnockbackState.cs" type="Script" id=7]
 
@@ -19,23 +18,22 @@ height = 2.5
 [node name="PlayerCylinder" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 )
 collision_mask = 14
-script = ExtResource( 3 )
-groundTimeToAccelerateX = 0.25
-groundTimeToDecelerateX = 0.15
-airTimeToDecelerateX = 0.05
-maxNumberOfJumps = 3
-fallGravityMultiplier = 2.5
-terminalVelocityY = -50.0
-boostHInTiles = 2.5
 
 [node name="MovementStateMachine" type="Node" parent="."]
 script = ExtResource( 4 )
+initialState = NodePath("AirState")
 
 [node name="GroundedState" type="Node" parent="MovementStateMachine"]
 script = ExtResource( 5 )
+maxSpeedX = 10.0
+groundTimeToAccelerateX = 0.25
+groundTimeToDecelerateX = 0.15
 
 [node name="AirState" type="Node" parent="MovementStateMachine"]
 script = ExtResource( 6 )
+maxSpeedX = 10.0
+airTimeToAccelerateX = 0.15
+airTimeToDecelerateX = 0.05
 
 [node name="KnockbackState" type="Node" parent="MovementStateMachine"]
 script = ExtResource( 7 )

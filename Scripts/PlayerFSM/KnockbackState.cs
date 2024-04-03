@@ -18,16 +18,6 @@ public class KnockbackState : PlayerState
     //private Timer invincibilityTimer;
     //[Export] private float hitInvincibilitySeconds = 1f;
 
-    public override void HandleInput(InputEvent inputEvent)
-    {
-        // do not handle input.
-    }
-
-    public override void Update(float deltaTime)
-    {
-        throw new NotImplementedException();
-    }
-
     public override void PhysicsUpdate(float deltaTime)
     {
         // apply auto velocity per frame (TODO: to be figured out after applying regular velocity in the other 2 states)
@@ -38,14 +28,16 @@ public class KnockbackState : PlayerState
         // we're only in this state to punish the player and auto-move it, exit on timer
         if (playerBody.IsOnFloor() /*&& invincibilityTimer == 0 or Elapsed*/)
         {
-            stateMachine.TransitionTo("AirState");
+            // how to decide whether to transition to air state or ground state?
+            // or just count on air state to detect ground and transition immediately?
+            //stateMachine.TransitionTo("AirState");
         }
     }
 
-    public override void Enter()
+    public override void Enter(Vector3 prevStateVelocity)
     {
         // need to calculate knockback velocity from incoming velocity here
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public override void Exit()

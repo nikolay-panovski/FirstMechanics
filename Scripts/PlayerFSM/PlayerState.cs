@@ -12,10 +12,8 @@ public abstract class PlayerState : Node
     {
         playerBody = Owner as KinematicBody;
     }
-
-    public abstract void HandleInput(InputEvent inputEvent);
-    public abstract void Update(float deltaTime);   // maybe everything will happen in PhysicsUpdate for this project?
-    public abstract void PhysicsUpdate(float deltaTime);
-    public abstract void Enter(/*object message*/ /* TODO likely: receive the velocity from the previous state */);
+ 
+    public abstract void PhysicsUpdate(float delta);    // everything will happen in PhysicsUpdate for a movement-focused FSM
+    public abstract void Enter(/*object message*/ Vector3 prevStateVelocity);
     public abstract void Exit(/* TODO likely: pass over the velocity from the previous state */);
 }
