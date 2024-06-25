@@ -155,15 +155,10 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 
         //debug Y acceleration measures
         //Utils.DebugPrintTimed(30, velocity);
-        Utils.DebugPrintTimed(15, invincibilityTimer.TimeLeft);
 
-        velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: false);
-        //MoveAndCollide(velocity, testOnly: true);
-
-
-        //if (GetLastSlideCollision().Collider)
-        // above is insufficient information to *easily* identify the collider,
-        // use Area and its signals instead.
+        velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: true);
+        // re: infiniteInertia: should this ignore collisions with RigidBodies but push them? or should it treat them as statics?
+        // in either case, the pushee should handle the fact it's being touched/kicked somehow. so let's try with push without collision (true).
     }
 
     public void TakeHurtboxCollisionEffect()
