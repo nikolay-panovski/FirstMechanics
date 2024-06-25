@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/KnockbackCalculator.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/MoveAndJumpPeakDistance.cs" type="Script" id=2]
+[ext_resource path="res://Materials/Green.tres" type="Material" id=3]
+
+[sub_resource type="CylinderMesh" id=7]
+material = ExtResource( 3 )
+height = 2.5
+radial_segments = 16
+
+[sub_resource type="CylinderShape" id=4]
+height = 2.5
+
+[node name="PlayerCylinder" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 )
+collision_mask = 14
+script = ExtResource( 2 )
+groundTimeToAccelerateX = 0.25
+groundTimeToDecelerateX = 0.15
+airTimeToDecelerateX = 0.05
+maxNumberOfJumps = 3
+fallGravityMultiplier = 2.5
+terminalVelocityY = -50.0
+boostHInTiles = 2.5
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 4 )
+
+[node name="CameraPivot" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 3.5, 5.5 )
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+target = NodePath("../CameraPivot")
+speed = 12.0
+enabled = true
+
+[node name="KnockbackCalculator" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
