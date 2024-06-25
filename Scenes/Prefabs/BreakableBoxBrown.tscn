@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/BreakableKickForceModifier.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/BreakableCheckImpactForBreak.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/BreakablePushableBoxHandler.cs" type="Script" id=2]
 [ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=3]
 [ext_resource path="res://Materials/Black.tres" type="Material" id=4]
 
@@ -10,17 +9,18 @@ material = ExtResource( 4 )
 
 [sub_resource type="BoxShape" id=3]
 
-[node name="BreakableBoxBrown" type="RigidBody"]
+[node name="PushableBox" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.332, 0, -2.685 )
 collision_layer = 2
 collision_mask = 3
-contacts_reported = 2
+mass = 0.2
+contacts_reported = 16
 contact_monitor = true
 can_sleep = false
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource( 2 )
-maxCollisionVelocity = 10.0
+breakingWallCollisionVelocity = 5.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 material_override = ExtResource( 3 )
@@ -29,8 +29,4 @@ mesh = SubResource( 10 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 3 )
 
-[node name="KickForceModifier" type="Node" parent="."]
-script = ExtResource( 1 )
-kickForce = 400.0
-
-[connection signal="body_entered" from="." to="KickForceModifier" method="OnBodyEntered"]
+[connection signal="body_entered" from="." to="." method="OnBodyEnteredWallBreakable"]

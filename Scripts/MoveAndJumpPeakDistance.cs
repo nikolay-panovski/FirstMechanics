@@ -30,6 +30,9 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 
     [Export] private float hitInvincibilitySeconds = 1f;
 
+    [Export] private float pushForce = 1f;
+    [Export] private float breakingPlayerStompVelocity = 15f;
+
     private float timeHeldLateralButton;
     private float timeReleasedLateralButton;
     private float speedX;
@@ -155,10 +158,37 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 
         //debug Y acceleration measures
         //Utils.DebugPrintTimed(30, velocity);
-
-        velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: true);
+        Vector3 velocityBeforeMove = velocity;
+        velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: false);
         // re: infiniteInertia: should this ignore collisions with RigidBodies but push them? or should it treat them as statics?
-        // in either case, the pushee should handle the fact it's being touched/kicked somehow. so let's try with push without collision (true).
+        // if the pushees handled the fact that they are being pushed, then push without collision (true) would have made sense.
+        // but I can't reason with this down the line for the omni-breakable box, so the next dirty trick: code the collision responses here.
+        int collCount = GetSlideCount();
+        for (int i = 0; i < collCount; i++)
+        {
+            KinematicCollision coll = GetSlideCollision(i);
+            // for this project assume that all RigidBodies are pushables that we want to handle as below
+            if (coll.Collider is RigidBody)
+            {
+                //GD.Print(coll.Normal);
+                //GD.Print("Dot up: " + coll.Normal.Dot(Vector3.Up));
+                if (Mathf.IsEqualApprox(coll.Normal.Dot(Vector3.Up), 1f))  // this == (collision with top) only guaranteed for a flat surface, like this cube box
+                {
+                    // if collision is with top, check own velocity to determine if collider should break
+                    if (velocityBeforeMove.Length() >= breakingPlayerStompVelocity)
+                    {
+                        (coll.Collider as Node).QueueFree();
+                        // TODO !!!!!!! CODE A MORE COMPLEX RESPONSE IN THE ACTUAL BREAKABLE ITSELF
+                    }
+                }
+                else if (Mathf.IsZeroApprox(coll.Normal.Dot(Vector3.Up)))    // this == (collision with side) only guaranteed for a flat wall surface, like this cube box
+                {
+                    // if collision is with wall, apply force to the object sideways to push it
+                    (coll.Collider as RigidBody).ApplyCentralImpulse(-coll.Normal * pushForce);
+                }
+
+            }
+        }
     }
 
     public void TakeHurtboxCollisionEffect()

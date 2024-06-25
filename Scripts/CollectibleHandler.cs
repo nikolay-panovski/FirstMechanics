@@ -1,6 +1,6 @@
 using Godot;
 
-public class CollectibleDestroy : Node
+public class CollectibleHandler : Node
 {
     [Export] private string destroyAnimationName;
 
@@ -29,9 +29,6 @@ public class CollectibleDestroy : Node
 
     public void OnAnimationFinished(string animName)
     {
-        if (animName == destroyAnimationName)
-        {
-            QueueFree();
-        }
+        QueueFree();
     }
 }
