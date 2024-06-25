@@ -21,8 +21,14 @@ _global_script_class_icons={
 [application]
 
 config/name="First Mechanics"
-run/main_scene="res://Scenes/SampleScene.tscn"
+run/main_scene="res://Scenes/SandboxScene.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+PlayerController="res://Scenes/Prefabs/PlayerController.tscn"
+CounterCollectedCoins="*res://Scripts/CounterCollectedCoins.cs"
+CounterBrokenBoxes="*res://Scripts/CounterBrokenBoxes.cs"
 
 [display]
 
