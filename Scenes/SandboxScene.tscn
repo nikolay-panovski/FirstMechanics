@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
 [ext_resource path="res://Scenes/Prefabs/8x8HurtboxPitSpikes.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Materials/RedSpikes.tres" type="Material" id=7]
 [ext_resource path="res://Materials/BluePortal2.tres" type="Material" id=8]
 [ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=9]
+[ext_resource path="res://Materials/Green.tres" type="Material" id=10]
 
 [sub_resource type="CubeMesh" id=6]
 
@@ -639,3 +640,9 @@ linkedPortalPath = NodePath("../PortalR2")
 transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -24.9034, 0, -23.5842 )
 material_override = ExtResource( 8 )
 linkedPortalPath = NodePath("../PortalL2")
+
+[node name="Level1Portal" parent="PortalPairs" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -18.7737, -0.279284, -30.8138 )
+material_override = ExtResource( 10 )
+skeleton = NodePath("../../DirectionalLight")
+newLevelFilePath = "res://Scenes/LevelScene1.tscn"
