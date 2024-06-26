@@ -46,6 +46,7 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 
     private KnockbackCalculator knockback;
     private Timer invincibilityTimer;
+    private Vector3 knockbackVelocity;
 
     public override void _Ready()
     {
@@ -70,125 +71,136 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
-        float actualGravity = baseGravity;
-
-        float actualTimeToAccelerateX = IsOnFloor() ? groundTimeToAccelerateX : airTimeToAccelerateX;
-        float actualTimeToDecelerateX = IsOnFloor() ? groundTimeToDecelerateX : airTimeToDecelerateX;
-
-        if (Input.IsActionJustPressed("move_right") || Input.IsActionJustPressed("move_left") || Input.IsActionJustPressed("move_forward") || Input.IsActionJustPressed("move_backward"))
+        if (invincibilityTimer.TimeLeft > 0)
         {
-            previousSpeedX = speedX;
-
-            timeReleasedLateralButton = 0f;
-            direction = Vector3.Zero;
-        }
-        if (Input.IsActionJustReleased("move_right") || Input.IsActionJustReleased("move_left") || Input.IsActionJustReleased("move_forward") || Input.IsActionJustReleased("move_backward"))
-        {
-            previousSpeedX = speedX;
-
-            timeHeldLateralButton = 0f;
-        }
-
-        if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_forward") || Input.IsActionPressed("move_backward"))
-        {
-            timeHeldLateralButton += delta;
-            if (timeHeldLateralButton > actualTimeToAccelerateX) timeHeldLateralButton = actualTimeToAccelerateX;
-            speedX = Mathf.Lerp(previousSpeedX, maxSpeedX, timeHeldLateralButton / actualTimeToAccelerateX);
+            MoveAndCollide(knockbackVelocity * delta);
+            // Godot 3.X was apparently made before Vector3.Lerp was invented:
+            knockbackVelocity.x = Mathf.Lerp(knockbackVelocity.x, 0, delta);
+            knockbackVelocity.y = Mathf.Lerp(knockbackVelocity.y, 0, delta);
+            knockbackVelocity.z = Mathf.Lerp(knockbackVelocity.z, 0, delta);
         }
         else
         {
-            timeReleasedLateralButton += delta;
-            if (timeReleasedLateralButton > actualTimeToDecelerateX) timeReleasedLateralButton = actualTimeToDecelerateX;
-            speedX = Mathf.Lerp(previousSpeedX, 0f, timeReleasedLateralButton / actualTimeToDecelerateX);
-        }
+            // ~~the big main:
 
-        if (Input.IsActionPressed("move_right"))
-        {
-            direction.x = 1f;
-        }
-        if (Input.IsActionPressed("move_left"))
-        {
-            direction.x = -1f;
-        }
-        if (Input.IsActionPressed("move_forward"))
-        {
-            direction.z = -1f;
-        }
-        if (Input.IsActionPressed("move_backward"))
-        {
-            direction.z = 1f;
-        }
+            float actualGravity = baseGravity;
 
+            float actualTimeToAccelerateX = IsOnFloor() ? groundTimeToAccelerateX : airTimeToAccelerateX;
+            float actualTimeToDecelerateX = IsOnFloor() ? groundTimeToDecelerateX : airTimeToDecelerateX;
 
-        if (direction != Vector3.Zero) direction = direction.Normalized();
-
-        velocity.x = direction.x * speedX;
-        velocity.z = direction.z * speedX;
-
-        Vector3 velocityH = new Vector3(velocity.x, 0, velocity.z);
-
-        if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
-        {
-            actualGravity = baseGravity * fallGravityMultiplier;
-        }
-        if (Input.IsActionPressed("fall_down"))
-        {
-            actualGravity = baseGravity * fallButtonGravityMultiplier;
-        }
-
-
-        velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
-
-        velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
-
-
-        if (IsOnFloor())
-        {
-            numberOfJumps = maxNumberOfJumps;
-        }
-        if (Input.IsActionJustPressed("jump"))
-        {
-            if (numberOfJumps > 0)
+            if (Input.IsActionJustPressed("move_right") || Input.IsActionJustPressed("move_left") || Input.IsActionJustPressed("move_forward") || Input.IsActionJustPressed("move_backward"))
             {
-                velocity.y = Mathf.Lerp(initialVelocityY, boostedHVelocityY, velocityH.Length() / maxSpeedX);
+                previousSpeedX = speedX;
+
+                timeReleasedLateralButton = 0f;
+                direction = Vector3.Zero;
+            }
+            if (Input.IsActionJustReleased("move_right") || Input.IsActionJustReleased("move_left") || Input.IsActionJustReleased("move_forward") || Input.IsActionJustReleased("move_backward"))
+            {
+                previousSpeedX = speedX;
+
+                timeHeldLateralButton = 0f;
             }
 
-            numberOfJumps--;
-            if (numberOfJumps < 0) numberOfJumps = 0;
-        }
-
-
-        //debug Y acceleration measures
-        //Utils.DebugPrintTimed(30, velocity);
-        Vector3 velocityBeforeMove = velocity;
-        velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: false);
-        // re: infiniteInertia: should this ignore collisions with RigidBodies but push them? or should it treat them as statics?
-        // if the pushees handled the fact that they are being pushed, then push without collision (true) would have made sense.
-        // but I can't reason with this down the line for the omni-breakable box, so the next dirty trick: code the collision responses here.
-        int collCount = GetSlideCount();
-        for (int i = 0; i < collCount; i++)
-        {
-            KinematicCollision coll = GetSlideCollision(i);
-
-            if ((coll.Collider as Node).IsInGroup("Breakable"))
+            if (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_forward") || Input.IsActionPressed("move_backward"))
             {
-                if (Mathf.IsEqualApprox(coll.Normal.Dot(Vector3.Up), 1f))  // this == (collision with top) only guaranteed for a flat surface, like this cube box
+                timeHeldLateralButton += delta;
+                if (timeHeldLateralButton > actualTimeToAccelerateX) timeHeldLateralButton = actualTimeToAccelerateX;
+                speedX = Mathf.Lerp(previousSpeedX, maxSpeedX, timeHeldLateralButton / actualTimeToAccelerateX);
+            }
+            else
+            {
+                timeReleasedLateralButton += delta;
+                if (timeReleasedLateralButton > actualTimeToDecelerateX) timeReleasedLateralButton = actualTimeToDecelerateX;
+                speedX = Mathf.Lerp(previousSpeedX, 0f, timeReleasedLateralButton / actualTimeToDecelerateX);
+            }
+
+            if (Input.IsActionPressed("move_right"))
+            {
+                direction.x = 1f;
+            }
+            if (Input.IsActionPressed("move_left"))
+            {
+                direction.x = -1f;
+            }
+            if (Input.IsActionPressed("move_forward"))
+            {
+                direction.z = -1f;
+            }
+            if (Input.IsActionPressed("move_backward"))
+            {
+                direction.z = 1f;
+            }
+
+
+            if (direction != Vector3.Zero) direction = direction.Normalized();
+
+            velocity.x = direction.x * speedX;
+            velocity.z = direction.z * speedX;
+
+            Vector3 velocityH = new Vector3(velocity.x, 0, velocity.z);
+
+            if (/*velocity.y < 0 || */!Input.IsActionPressed("jump"))   // the commented out part influences the params, so leave it away for this design
+            {
+                actualGravity = baseGravity * fallGravityMultiplier;
+            }
+            if (Input.IsActionPressed("fall_down"))
+            {
+                actualGravity = baseGravity * fallButtonGravityMultiplier;
+            }
+
+
+            velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
+
+            velocity.y = Mathf.Max(velocity.y, terminalVelocityY);
+
+
+            if (IsOnFloor())
+            {
+                numberOfJumps = maxNumberOfJumps;
+            }
+            if (Input.IsActionJustPressed("jump"))
+            {
+                if (numberOfJumps > 0)
                 {
-                    // if collision is with top, check own velocity to determine if collider should break
-                    if (velocityBeforeMove.Length() >= breakingPlayerStompVelocity)
+                    velocity.y = Mathf.Lerp(initialVelocityY, boostedHVelocityY, velocityH.Length() / maxSpeedX);
+                }
+
+                numberOfJumps--;
+                if (numberOfJumps < 0) numberOfJumps = 0;
+            }
+
+
+            Vector3 velocityBeforeMove = velocity;
+            velocity = MoveAndSlide(velocity, Vector3.Up, infiniteInertia: false);
+            // re: infiniteInertia: should this ignore collisions with RigidBodies but push them? or should it treat them as statics?
+            // if the pushees handled the fact that they are being pushed, then push without collision (true) would have made sense.
+            // but I can't reason with this down the line for the omni-breakable box, so the next dirty trick: code the collision responses here.
+            int collCount = GetSlideCount();
+            for (int i = 0; i < collCount; i++)
+            {
+                KinematicCollision coll = GetSlideCollision(i);
+
+                if ((coll.Collider as Node).IsInGroup("Breakable"))
+                {
+                    if (Mathf.IsEqualApprox(coll.Normal.Dot(Vector3.Up), 1f))  // this == (collision with top) only guaranteed for a flat surface, like this cube box
                     {
-                        if ((coll.Collider as Node).HasMethod("BreakableBreak"))
+                        // if collision is with top, check own velocity to determine if collider should break
+                        if (velocityBeforeMove.Length() >= breakingPlayerStompVelocity)
                         {
-                            (coll.Collider as Node).Call("BreakableBreak");
+                            if ((coll.Collider as Node).HasMethod("BreakableBreak"))
+                            {
+                                (coll.Collider as Node).Call("BreakableBreak");
+                            }
                         }
                     }
-                }
-                else if (Mathf.IsZeroApprox(coll.Normal.Dot(Vector3.Up)))    // this == (collision with side) only guaranteed for a flat wall surface, like this cube box
-                {
-                    // if collision is with wall, apply force to the object sideways to push it
-                    (coll.Collider as RigidBody).ApplyCentralImpulse(-coll.Normal * pushForce);
-                }
+                    else if (Mathf.IsZeroApprox(coll.Normal.Dot(Vector3.Up)))    // this == (collision with side) only guaranteed for a flat wall surface, like this cube box
+                    {
+                        // if collision is with wall, apply force to the object sideways to push it
+                        (coll.Collider as RigidBody).ApplyCentralImpulse(-coll.Normal * pushForce);
+                    }
 
+                }
             }
         }
     }
@@ -201,17 +213,11 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
         // stun player (do not accept input)
         // apply the knockback (only use MoveAndCollide for movement, but take same gravity as above into account)
         // -> properly fixing all of these will take quite long and points towards code architecture and FSM, therefore only sufficiently patch it together
-        
-        // print the fact of knockback
 
         if (invincibilityTimer.TimeLeft == 0)
         {
             invincibilityTimer.Start(hitInvincibilitySeconds);
-
-            Vector3 knockbackVelocity;
             knockbackVelocity = knockback.CalculateKnockbackVelocity(velocity);
-            MoveAndCollide(knockbackVelocity);
-            GD.Print("Knockback, moved by " + knockbackVelocity);
         }
         // else: player still has iframes, do not parse the hurtbox collision as such for this duration
     }
