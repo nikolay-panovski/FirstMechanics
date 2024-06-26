@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Materials/GoldCoin.tres" type="Material" id=1]
-[ext_resource path="res://Scripts/CollectibleDestroy.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/CollectiblePlayCollectedAnimation.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/CollectibleHandler.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/TestHandler.cs" type="Script" id=4]
 [ext_resource path="res://Coin_Collected_Destroy.anim" type="Animation" id=5]
 [ext_resource path="res://Coin_Rotate.anim" type="Animation" id=6]
@@ -109,10 +108,11 @@ collision_layer = 4
 transform = Transform( 1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0 )
 shape = SubResource( 2 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="RotationAnimation" type="AnimationPlayer" parent="."]
+autoplay = "Coin_Rotate"
 anims/Coin_Rotate = ExtResource( 6 )
 
-[node name="DestructionPlayer" type="AnimationPlayer" parent="."]
+[node name="DestructionAnimation" type="AnimationPlayer" parent="."]
 playback_speed = 2.5
 anims/Coin_Collected_Destroy = ExtResource( 5 )
 anims/RESET = SubResource( 8 )
@@ -120,14 +120,10 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CollectedAnimation" type="Node" parent="DestructionPlayer"]
-script = ExtResource( 3 )
-animationName = "Coin_Collected_Disappear"
-
 [node name="TestHandler" type="Node" parent="."]
 script = ExtResource( 4 )
 
 [connection signal="CollectibleBodyEntered" from="." to="TestHandler" method="OnCollectibleBodyEnteredPrint"]
 [connection signal="body_entered" from="Area" to="." method="OnBodyEnteredEmit"]
 [connection signal="body_entered" from="Area" to="." method="OnBodyEnteredPlayDestroyAnimation"]
-[connection signal="animation_finished" from="DestructionPlayer" to="." method="OnAnimationFinished"]
+[connection signal="animation_finished" from="DestructionAnimation" to="." method="OnAnimationFinished"]

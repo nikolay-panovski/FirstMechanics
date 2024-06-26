@@ -14,7 +14,7 @@ public class CollectibleHandler : Node
 
     public void OnBodyEnteredPlayDestroyAnimation(Node body)
     {
-        AnimationPlayer player = GetNodeOrNull<AnimationPlayer>(new NodePath("DestructionPlayer"));
+        AnimationPlayer player = GetNodeOrNull<AnimationPlayer>(new NodePath("DestructionAnimation"));
         if (!string.IsNullOrEmpty(destroyAnimationName) && player != null)
         {
             player.Play(destroyAnimationName);
