@@ -55,6 +55,9 @@ public class BreakablePushableBoxHandler : RigidBody
             // probably out of scope: add movement on spawn (random initial velocity ala the particles)
         }
 
+        CounterBrokenBoxes.Instance.boxesBroken++;
+        GD.Print("Boxes broken: " + CounterBrokenBoxes.Instance.boxesBroken);
+
         QueueFree();
     }
 }
