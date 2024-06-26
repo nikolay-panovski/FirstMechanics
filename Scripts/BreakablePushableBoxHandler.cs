@@ -45,7 +45,10 @@ public class BreakablePushableBoxHandler : RigidBody
             GetTree().Root.AddChild(particleInstance);
             (particleInstance as Spatial).GlobalTranslation = GlobalTranslation;
             (particleInstance as Particles).Emitting = true;
+
             // leaks particle instances (set as one-shot, it will stop emitting, but will still exist)
+            //await ToSignal(GetTree().CreateTimer((particleInstance as Particles).Lifetime), "timeout");
+            //particleInstance.QueueFree();
         }
         for (int i = 0; i < numCoinsOnBreak; i++)
         {
