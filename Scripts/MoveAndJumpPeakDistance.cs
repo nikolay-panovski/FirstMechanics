@@ -8,6 +8,8 @@ using Godot;
 /// https://docs.godotengine.org/en/3.5/getting_started/first_3d_game/03.player_movement_code.html
 /// 
 /// https://www.youtube.com/watch?v=hG9SzQxaCm8
+/// 
+/// ...and eventually other parts added just to handle interactions with some other objects.
 public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 {
     [Export] private float maxSpeedX = 10f;
@@ -167,18 +169,18 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
         for (int i = 0; i < collCount; i++)
         {
             KinematicCollision coll = GetSlideCollision(i);
-            // for this project assume that all RigidBodies are pushables that we want to handle as below
-            if (coll.Collider is RigidBody)
+
+            if ((coll.Collider as Node).IsInGroup("Breakable"))
             {
-                //GD.Print(coll.Normal);
-                //GD.Print("Dot up: " + coll.Normal.Dot(Vector3.Up));
                 if (Mathf.IsEqualApprox(coll.Normal.Dot(Vector3.Up), 1f))  // this == (collision with top) only guaranteed for a flat surface, like this cube box
                 {
                     // if collision is with top, check own velocity to determine if collider should break
                     if (velocityBeforeMove.Length() >= breakingPlayerStompVelocity)
                     {
-                        (coll.Collider as Node).QueueFree();
-                        // TODO !!!!!!! CODE A MORE COMPLEX RESPONSE IN THE ACTUAL BREAKABLE ITSELF
+                        if ((coll.Collider as Node).HasMethod("BreakableBreak"))
+                        {
+                            (coll.Collider as Node).Call("BreakableBreak");
+                        }
                     }
                 }
                 else if (Mathf.IsZeroApprox(coll.Normal.Dot(Vector3.Up)))    // this == (collision with side) only guaranteed for a flat wall surface, like this cube box

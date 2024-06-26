@@ -1,6 +1,6 @@
 using Godot;
 
-public class CollectibleHandler : Node
+public class CollectibleHandler : Spatial   // really ugly fix for root being Spatial in order to be able to access the transform after a typecast!
 {
     [Export] private string destroyAnimationName;
 
