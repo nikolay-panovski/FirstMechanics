@@ -642,7 +642,7 @@ material_override = ExtResource( 8 )
 linkedPortalPath = NodePath("../PortalL2")
 
 [node name="Level1Portal" parent="PortalPairs" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -18.7737, -0.279284, -30.8138 )
+transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -24.7737, -0.279284, -4.8138 )
 material_override = ExtResource( 10 )
 skeleton = NodePath("../../DirectionalLight")
 newLevelFilePath = "res://Scenes/LevelScene1.tscn"

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
 [ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=2]
 [ext_resource path="res://Materials/Green.tres" type="Material" id=3]
 [ext_resource path="res://Scenes/Prefabs/Coin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Prefabs/Portal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Prefabs/TouchPopupInworld.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 1 )
@@ -75,3 +76,6 @@ mesh = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Block3"]
 shape = SubResource( 4 )
+
+[node name="TouchPopupInworld" parent="." instance=ExtResource( 6 )]
+actualText = "Move with the arrow keys or WASD!"
