@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
 [ext_resource path="res://Scenes/Prefabs/8x8HurtboxPitSpikes.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Materials/BluePortal2.tres" type="Material" id=8]
 [ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=9]
 [ext_resource path="res://Materials/Green.tres" type="Material" id=10]
+[ext_resource path="res://Scenes/Prefabs/WorldBottomKillzone.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CubeMesh" id=6]
 
@@ -646,3 +647,6 @@ transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -24.7737, -0.279284, -4.8138
 material_override = ExtResource( 10 )
 skeleton = NodePath("../../DirectionalLight")
 newLevelFilePath = "res://Scenes/LevelScene1.tscn"
+
+[node name="WorldBottomKillzone" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
