@@ -1,6 +1,6 @@
 using Godot;
 
-/// This is currently the "god script" of the player character, with its core being movement, but potentially far and tightly coupled reach.
+/// This is the "god script" of the player character, with its core being movement, but potentially far and tightly coupled reach.
 /// For this I blame whatever the recommended Godot architecture is for being confusing, coming from a Components background (Unity).
 /// I will NOT use GetNode("../../../..")... as a substitute.
 /// 
@@ -12,6 +12,9 @@ using Godot;
 /// ...and eventually other parts added just to handle interactions with some other objects.
 public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
 {
+    [Export] private SpatialMaterial knockbackMaterial;
+    private MeshInstance playerMesh;
+
     [Export] private float maxSpeedX = 10f;
     [Export] private float groundTimeToAccelerateX = 0.5f;
     [Export] private float groundTimeToDecelerateX = 0.3f;
@@ -52,6 +55,7 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
     {
         knockback = GetNode<KnockbackCalculator>(new NodePath("KnockbackCalculator"));
         invincibilityTimer = GetNode<Timer>(new NodePath("HitTimer"));
+        playerMesh = GetNode<MeshInstance>(new NodePath("MeshInstance"));
 
         initialVelocityY = (2 * jumpPeakHeight * maxSpeedX) / jumpPeakDistanceX;
         baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(maxSpeedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
@@ -218,7 +222,13 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
         {
             invincibilityTimer.Start(hitInvincibilitySeconds);
             knockbackVelocity = knockback.CalculateKnockbackVelocity(velocity);
+            playerMesh.MaterialOverride = knockbackMaterial;
         }
         // else: player still has iframes, do not parse the hurtbox collision as such for this duration
+    }
+
+    public void OnKnockbackTimeoutRevertMaterial()
+    {
+        playerMesh.MaterialOverride = null;
     }
 }
