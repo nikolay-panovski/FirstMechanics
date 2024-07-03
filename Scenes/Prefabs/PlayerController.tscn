@@ -26,7 +26,7 @@ maxNumberOfJumps = 3
 fallGravityMultiplier = 2.5
 terminalVelocityY = -50.0
 boostHInTiles = 2.5
-hitInvincibilitySeconds = 2.0
+hitInvincibilitySeconds = 0.5
 pushForce = 3.0
 breakingPlayerStompVelocity = 30.0
 
@@ -49,9 +49,6 @@ script = ExtResource( 1 )
 VKnockbackStrength = 1.0
 
 [node name="HitTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="KnockbackFallCorrectionTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="timeout" from="HitTimer" to="." method="OnKnockbackTimeoutRevertMaterial"]
