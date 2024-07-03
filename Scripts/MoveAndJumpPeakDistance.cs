@@ -47,15 +47,17 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
     private float baseGravity;
     private int numberOfJumps;
 
-    private KnockbackCalculator knockback;
+    private IKnockbackCalculator knockback;
     private Timer invincibilityTimer;
     private Vector3 knockbackVelocity;
+    private Timer knockbackFallTimer;
 
     public override void _Ready()
     {
-        knockback = GetNode<KnockbackCalculator>(new NodePath("KnockbackCalculator"));
+        knockback = GetNode<IKnockbackCalculator>(new NodePath("KnockbackCalculator"));
         invincibilityTimer = GetNode<Timer>(new NodePath("HitTimer"));
         playerMesh = GetNode<MeshInstance>(new NodePath("MeshInstance"));
+        knockbackFallTimer = GetNode<Timer>(new NodePath("KnockbackFallCorrectionTimer"));
 
         initialVelocityY = (2 * jumpPeakHeight * maxSpeedX) / jumpPeakDistanceX;
         baseGravity = (-2 * jumpPeakHeight * Mathf.Pow(maxSpeedX, 2)) / Mathf.Pow(jumpPeakDistanceX, 2);
@@ -153,6 +155,13 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
                 actualGravity = baseGravity * fallButtonGravityMultiplier;
             }
 
+            // ~~yet another badly placed injection...
+            // if we are in some grace period after a knockback/stun, kinda lower the gravity to not immediately drop like a brick
+            if (knockbackFallTimer.TimeLeft > 0)
+            {
+                actualGravity = baseGravity;
+            }
+
 
             velocity.y += actualGravity * delta;  // leave the sign to the gravity variable
 
@@ -230,5 +239,7 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
     public void OnKnockbackTimeoutRevertMaterial()
     {
         playerMesh.MaterialOverride = null;
+        // injected to soften falls immediately after knockback/stun:
+        knockbackFallTimer.Start();
     }
 }

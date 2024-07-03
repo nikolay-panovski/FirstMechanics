@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/KnockbackCalculator.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/KnockbackCalculatorVOnly.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/MoveAndJumpPeakDistance.cs" type="Script" id=2]
 [ext_resource path="res://Materials/Green.tres" type="Material" id=3]
 [ext_resource path="res://Materials/RedSpikes.tres" type="Material" id=4]
@@ -26,6 +26,7 @@ maxNumberOfJumps = 3
 fallGravityMultiplier = 2.5
 terminalVelocityY = -50.0
 boostHInTiles = 2.5
+hitInvincibilitySeconds = 2.0
 pushForce = 3.0
 breakingPlayerStompVelocity = 30.0
 
@@ -45,8 +46,12 @@ enabled = true
 
 [node name="KnockbackCalculator" type="Node" parent="."]
 script = ExtResource( 1 )
+VKnockbackStrength = 1.0
 
 [node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnockbackFallCorrectionTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="timeout" from="HitTimer" to="." method="OnKnockbackTimeoutRevertMaterial"]
