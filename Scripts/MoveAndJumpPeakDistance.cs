@@ -81,9 +81,9 @@ public class MoveAndJumpPeakDistance : KinematicBody, IHurtable
         {
             MoveAndCollide(knockbackVelocity * delta);
             // Godot 3.X was apparently made before Vector3.Lerp was invented:
-            knockbackVelocity.x = Mathf.Lerp(knockbackVelocity.x, 0, delta);
-            knockbackVelocity.y = Mathf.Lerp(knockbackVelocity.y, 0, delta);
-            knockbackVelocity.z = Mathf.Lerp(knockbackVelocity.z, 0, delta);
+            knockbackVelocity.x = Mathf.Lerp(knockbackVelocity.x, 0, Mathf.Max(0, 1 - invincibilityTimer.TimeLeft));
+            knockbackVelocity.y = Mathf.Lerp(knockbackVelocity.y, 0, Mathf.Max(0, 1 - invincibilityTimer.TimeLeft));
+            knockbackVelocity.z = Mathf.Lerp(knockbackVelocity.z, 0, Mathf.Max(0, 1 - invincibilityTimer.TimeLeft));
         }
         else
         {
