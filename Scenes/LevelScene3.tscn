@@ -1,0 +1,502 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
+[ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=2]
+[ext_resource path="res://Materials/Green.tres" type="Material" id=3]
+[ext_resource path="res://Scenes/Prefabs/HurtboxSpike.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Prefabs/Portal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Prefabs/TouchPopupInworld.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Prefabs/WorldBottomKillzone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Prefabs/HurtboxSpikes8x8Pit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Prefabs/Coin.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CubeMesh" id=1]
+material = ExtResource( 1 )
+size = Vector3( 100, 2, 100 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 50, 1, 50 )
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="BoxShape" id=4]
+
+[sub_resource type="CubeMesh" id=5]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0219894, 0.999758, 0, -0.999758, -0.0219894, 0, 36.1504, 0 )
+
+[node name="PortalEnd" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 0.4, 0, 0, 0, 2, 77.5915, 10, -64.2577 )
+material_override = ExtResource( 3 )
+newLevelFilePath = "res://Scenes/SandboxScene.tscn"
+
+[node name="PitSpikes" parent="." instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -3, 26 )
+
+[node name="Grounds" type="Spatial" parent="."]
+
+[node name="Ground" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.2, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, -2, 0 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground"]
+shape = SubResource( 2 )
+
+[node name="Ground2" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 54, -2, 0 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground2"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground2"]
+shape = SubResource( 2 )
+
+[node name="Ground9" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.15, 0, 0, 0, 1, 0, 0, 0, 0.1, 68, 6, -4 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground9"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground9"]
+shape = SubResource( 2 )
+
+[node name="Ground10" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 77, 6, -4 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground10"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground10"]
+shape = SubResource( 2 )
+
+[node name="Ground11" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 77, 6, -14 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground11"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground11"]
+shape = SubResource( 2 )
+
+[node name="Ground16" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.2, 77, 8, -59 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground16"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground16"]
+shape = SubResource( 2 )
+
+[node name="Ground12" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.06, 0, 0, 0, 1, 0, 0, 0, 0.06, 77, 3, -26 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground12"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground12"]
+shape = SubResource( 2 )
+
+[node name="Ground13" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.06, 0, 0, 0, 1, 0, 0, 0, 0.06, 70, 1, -35 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground13"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground13"]
+shape = SubResource( 2 )
+
+[node name="Ground14" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.06, 0, 0, 0, 1, 0, 0, 0, 0.06, 83, 1, -35 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground14"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground14"]
+shape = SubResource( 2 )
+
+[node name="Ground15" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.06, 0, 0, 0, 1, 0, 0, 0, 0.06, 76, -1, -44 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground15"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground15"]
+shape = SubResource( 2 )
+
+[node name="Ground7" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 15, -2, 0 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground7"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground7"]
+shape = SubResource( 2 )
+
+[node name="Ground8" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 33, -2, 0 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground8"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground8"]
+shape = SubResource( 2 )
+
+[node name="Ground3" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, -15, -2, 0 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground3"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground3"]
+shape = SubResource( 2 )
+
+[node name="Ground5" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, -28, 18, -16 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground5"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="Ground6" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, -28, 18, 14 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground6"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="Ground4" type="StaticBody" parent="Grounds"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, -2, -15 )
+collision_layer = 2
+
+[node name="FloorBox" type="MeshInstance" parent="Grounds/Ground4"]
+mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground4"]
+shape = SubResource( 2 )
+
+[node name="Block" type="StaticBody" parent="."]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 13, 3, -16 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Block"]
+material_override = ExtResource( 2 )
+mesh = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Block"]
+shape = SubResource( 4 )
+
+[node name="Block2" type="StaticBody" parent="."]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 7, 1, -14 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Block2"]
+material_override = ExtResource( 3 )
+mesh = SubResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Block2"]
+shape = SubResource( 4 )
+
+[node name="TouchPopupInworld" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
+actualText = "Never forget to look around for bonuses!"
+
+[node name="TouchPopupInworld3" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 10, -53 )
+actualText = "Congratulations! This is the end of the levels. With this portal you can go back to the sandbox."
+
+[node name="TouchPopupInworld2" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0 )
+actualText = "There are a lot of extra coins, but very high up! Can you use your skills to get them?"
+
+[node name="WorldBottomKillzone" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0 )
+
+[node name="DevSpikes" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9 )
+
+[node name="Spike13" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 10 )
+
+[node name="Spike14" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 0, 8 )
+
+[node name="Spike15" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 8 )
+
+[node name="Spike16" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 10 )
+
+[node name="Spike17" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 8, -6 )
+
+[node name="Spike18" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 8, -8 )
+
+[node name="Spike19" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 8, -8 )
+
+[node name="Spike20" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 8, -6 )
+
+[node name="Spike21" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 5, -17 )
+
+[node name="Spike22" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 5, -19 )
+
+[node name="Spike23" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 5, -19 )
+
+[node name="Spike24" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 5, -17 )
+
+[node name="Spike25" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 5, -19 )
+
+[node name="Spike26" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 5, -17 )
+
+[node name="Spike27" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 5, -15 )
+
+[node name="Spike28" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 5, -15 )
+
+[node name="Spike29" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 5, -15 )
+
+[node name="Spike48" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 1, -35 )
+
+[node name="Spike49" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 1, -37 )
+
+[node name="Spike50" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 1, -37 )
+
+[node name="Spike51" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 1, -35 )
+
+[node name="Spike52" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 1, -37 )
+
+[node name="Spike53" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 1, -35 )
+
+[node name="Spike54" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 1, -33 )
+
+[node name="Spike55" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 1, -33 )
+
+[node name="Spike56" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 1, -33 )
+
+[node name="Spike30" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 3, -26 )
+
+[node name="Spike31" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 3, -28 )
+
+[node name="Spike32" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 3, -28 )
+
+[node name="Spike33" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 3, -26 )
+
+[node name="Spike34" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 3, -28 )
+
+[node name="Spike35" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 3, -26 )
+
+[node name="Spike36" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 3, -24 )
+
+[node name="Spike37" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 3, -24 )
+
+[node name="Spike38" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 3, -24 )
+
+[node name="Spike39" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 87, 3, -26 )
+
+[node name="Spike40" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 87, 3, -28 )
+
+[node name="Spike41" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 3, -28 )
+
+[node name="Spike42" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 3, -26 )
+
+[node name="Spike43" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 3, -28 )
+
+[node name="Spike44" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 3, -26 )
+
+[node name="Spike45" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 87, 3, -24 )
+
+[node name="Spike46" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 3, -24 )
+
+[node name="Spike47" parent="DevSpikes" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 3, -24 )
+
+[node name="CoinsExtra" type="Spatial" parent="."]
+
+[node name="Coin" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 3, 4 )
+
+[node name="Coin2" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 7, 4 )
+
+[node name="Coin3" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 11, 4 )
+
+[node name="Coin4" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 15, 4 )
+
+[node name="Coin5" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 19, 4 )
+
+[node name="Coin6" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 3, -5 )
+
+[node name="Coin7" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 7, -5 )
+
+[node name="Coin8" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 11, -5 )
+
+[node name="Coin9" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 15, -5 )
+
+[node name="Coin10" parent="CoinsExtra" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 19, -5 )
+
+[node name="Island1" type="Spatial" parent="CoinsExtra"]
+
+[node name="Coin11" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 21, 11 )
+
+[node name="Coin12" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 10 )
+
+[node name="Coin13" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 21, 11 )
+
+[node name="Coin14" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 21, 14 )
+
+[node name="Coin15" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 13 )
+
+[node name="Coin16" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 21, 14 )
+
+[node name="Coin17" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 21, 17 )
+
+[node name="Coin18" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 16 )
+
+[node name="Coin20" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 19 )
+
+[node name="Coin19" parent="CoinsExtra/Island1" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 21, 17 )
+
+[node name="Island2" type="Spatial" parent="CoinsExtra"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30 )
+
+[node name="Coin11" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 21, 11 )
+
+[node name="Coin12" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 10 )
+
+[node name="Coin13" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 21, 11 )
+
+[node name="Coin14" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 21, 14 )
+
+[node name="Coin15" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 13 )
+
+[node name="Coin16" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 21, 14 )
+
+[node name="Coin17" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 21, 17 )
+
+[node name="Coin18" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 16 )
+
+[node name="Coin20" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 21, 19 )
+
+[node name="Coin19" parent="CoinsExtra/Island2" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 21, 17 )
+
+[node name="CoinsLevel" type="Spatial" parent="."]
+
+[node name="Coin11" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 3, 1 )
+
+[node name="Coin12" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 3, 1 )
+
+[node name="Coin13" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 3, 1 )
+
+[node name="Coin14" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 7, 1 )
+
+[node name="Coin15" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 3, 1 )
+
+[node name="Coin16" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 59, 6, 0 )
+
+[node name="Coin17" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 10, 0 )
+
+[node name="Coin18" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 5, -46 )
+
+[node name="Coin19" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 8, -47 )
+
+[node name="Coin20" parent="CoinsLevel" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76, 12, -48 )

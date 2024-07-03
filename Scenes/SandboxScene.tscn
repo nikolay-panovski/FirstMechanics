@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
-[ext_resource path="res://Scenes/Prefabs/8x8HurtboxPitSpikes.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Prefabs/HurtboxSpikes8x8Pit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Materials/Black.tres" type="Material" id=3]
 [ext_resource path="res://Scenes/Prefabs/Portal.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Prefabs/Coin.tscn" type="PackedScene" id=5]

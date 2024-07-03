@@ -14,7 +14,7 @@ radial_segments = 16
 height = 2.5
 
 [node name="PlayerCylinder" type="KinematicBody" groups=["Player"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55907, 9.3054, -0.00212097 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 collision_mask = 14
 collision/safe_margin = 0.06
 script = ExtResource( 2 )
@@ -26,7 +26,6 @@ maxNumberOfJumps = 3
 fallGravityMultiplier = 2.5
 terminalVelocityY = -50.0
 boostHInTiles = 2.5
-hitInvincibilitySeconds = 0.5
 pushForce = 3.0
 breakingPlayerStompVelocity = 30.0
 
@@ -46,7 +45,7 @@ enabled = true
 
 [node name="KnockbackCalculator" type="Node" parent="."]
 script = ExtResource( 1 )
-VKnockbackStrength = 1.0
+VKnockbackStrength = 0.6
 
 [node name="HitTimer" type="Timer" parent="."]
 one_shot = true
