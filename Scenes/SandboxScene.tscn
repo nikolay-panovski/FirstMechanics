@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
 [ext_resource path="res://Scenes/Prefabs/HurtboxSpikes8x8Pit.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=9]
 [ext_resource path="res://Materials/Green.tres" type="Material" id=10]
 [ext_resource path="res://Scenes/Prefabs/WorldBottomKillzone.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Prefabs/TouchPopupInworld.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CubeMesh" id=6]
 
@@ -643,10 +644,15 @@ material_override = ExtResource( 8 )
 linkedPortalPath = NodePath("../PortalL2")
 
 [node name="Level1Portal" parent="PortalPairs" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -24.7737, -0.279284, -4.8138 )
+transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, -12, 1.25, -18 )
 material_override = ExtResource( 10 )
 skeleton = NodePath("../../DirectionalLight")
 newLevelFilePath = "res://Scenes/LevelScene1.tscn"
+
+[node name="TouchPopupInworld" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.5, -17 )
+skeleton = NodePath("../PortalPairs/Level1Portal")
+actualText = "The green circle is a portal to another level! (The others only teleport around this scene.)"
 
 [node name="WorldBottomKillzone" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
