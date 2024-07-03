@@ -45,7 +45,7 @@ enabled = true
 
 [node name="KnockbackCalculator" type="Node" parent="."]
 script = ExtResource( 1 )
-VKnockbackStrength = 0.6
+VKnockbackStrength = 0.92
 
 [node name="HitTimer" type="Timer" parent="."]
 one_shot = true

@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Materials/YellowPale.tres" type="Material" id=1]
-[ext_resource path="res://Materials/BrownBreakable.tres" type="Material" id=2]
 [ext_resource path="res://Materials/Green.tres" type="Material" id=3]
 [ext_resource path="res://Scenes/Prefabs/HurtboxSpike.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Prefabs/Portal.tscn" type="PackedScene" id=5]
@@ -16,12 +15,6 @@ size = Vector3( 100, 2, 100 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 50, 1, 50 )
-
-[sub_resource type="CubeMesh" id=3]
-
-[sub_resource type="BoxShape" id=4]
-
-[sub_resource type="CubeMesh" id=5]
 
 [node name="Spatial" type="Spatial"]
 
@@ -201,26 +194,6 @@ mesh = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Grounds/Ground4"]
 shape = SubResource( 2 )
-
-[node name="Block" type="StaticBody" parent="."]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 13, 3, -16 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Block"]
-material_override = ExtResource( 2 )
-mesh = SubResource( 3 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Block"]
-shape = SubResource( 4 )
-
-[node name="Block2" type="StaticBody" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 7, 1, -14 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Block2"]
-material_override = ExtResource( 3 )
-mesh = SubResource( 5 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Block2"]
-shape = SubResource( 4 )
 
 [node name="TouchPopupInworld" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
