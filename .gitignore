@@ -17,3 +17,6 @@ data_*/
 
 # Self-made Builds folder
 Builds/
+
+# http://angelicgarbage.com/posts/how-to-deploy-a-godot-4-game-to-github-pages/ step 5
+.godot/

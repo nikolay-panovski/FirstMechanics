@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Lato-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Materials/PurpleDebug.tres" type="Material" id=2]
+[ext_resource path="res://Scripts/TouchPopupDisplayText.cs" type="Script" id=3]
+
+[sub_resource type="CubeMesh" id=18]
+material = ExtResource( 2 )
+size = Vector3( 2, 0.2, 2 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 54
+outline_size = 3
+font_data = ExtResource( 1 )
+
+[sub_resource type="BoxShape" id=19]
+
+[node name="TouchPopupInworld" type="MeshInstance"]
+mesh = SubResource( 18 )
+script = ExtResource( 3 )
+markerLabelPath = NodePath("DefaultMarkerLabel")
+actualTextLabelPath = NodePath("TutorialTextLabel")
+
+[node name="DefaultMarkerLabel" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+pixel_size = 0.02
+billboard = 1
+text = "!"
+font = SubResource( 17 )
+
+[node name="TutorialTextLabel" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+visible = false
+billboard = 1
+text = "[DEFAULT TEXT]"
+font = SubResource( 17 )
+autowrap = true
+width = 1000.0
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 19 )
+
+[connection signal="body_entered" from="Area" to="." method="OnPlayerEnteredShowTutorialText"]
+[connection signal="body_exited" from="Area" to="." method="OnPlayerExitedHideTutorialText"]
